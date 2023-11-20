@@ -125,9 +125,10 @@ export const actions = {
         StoreUtils.dispatch("teams/readTeam")
 
         StoreUtils.commit(StoreUtils.mutations.auth.updateUserInfo, responseData)
-      }else{
-        RouterUtils.navigateTo(RouterUtils.routes.auth.loginview.name)
       }
+        // else{
+      //   RouterUtils.navigateTo(RouterUtils.routes.auth.loginview.name)
+      // }
     }).catch(error=>{
       console.log(error)
       StoreUtils.commit(StoreUtils.mutations.auth.updateLoading, false)
