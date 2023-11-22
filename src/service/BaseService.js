@@ -18,11 +18,12 @@
    });
 
    apiClient.interceptors.response.use((config) => {
-       if (config.data.responseCode === '115' && location.pathname !== "/login" && location.pathname !== "/"){
-       BaseNotification.fireToast('error', 'Expired Session... Please login again').then(()=>{
-         RouterUtils.navigateTo(RouterUtils.routes.auth.loginview.path)
-       })
-     }
+       if (config.data.responseCode === '115' && location.pathname !== "/login"){
+           console.log("why" + " " + location.pathname)
+           BaseNotification.fireToast('error', 'Expired Session... Please login again').then(()=>{})
+           RouterUtils.navigateTo(RouterUtils.routes.auth.loginview.path)
+
+       }
      return config;
 
    });

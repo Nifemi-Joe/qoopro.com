@@ -78,6 +78,7 @@ export const actions = {
             }else{
                 BaseNotification.fireToast("error", responseData.responseMessage).then()
                 StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
+                return responseData
             }
         }).catch(error=>{
             BaseNotification.fireToast("error", error).then()
