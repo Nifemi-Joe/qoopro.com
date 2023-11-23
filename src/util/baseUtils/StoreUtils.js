@@ -29,6 +29,7 @@ class StoreUtils {
             createProject: "project/createProject",
             readProject: "project/readProject",
             readProjectById: "project/readProjectId",
+            readProjectByTeamId: "project/readProjectByTeamId",
             updateProject: "project/updateProject",
             addUserToProject: "project/addUserToProject",
             removeUserProject: "project/removeUserProject",

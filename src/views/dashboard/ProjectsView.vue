@@ -64,7 +64,7 @@
                     <div class="grid-list4_title-wrapper">
                       <div class="text-weight-semibold">{{projects.projectName}}</div>
                       <div class="grid-list4_date-wrapper">
-                        <div class="text-size-small-5">Created: {{new Date(projects.projectCreatedAt).getDate()}} {{new Date(projects.projectCreatedAt).toLocaleString('en-us',{month:'short'})}} {{new Date(projects.projectCreatedAt).getFullYear()}}</div>
+                        <div class="text-size-small-5">Created: {{getDate(projects.projectCreatedAt)}} {{new Date(projects.projectCreatedAt).toLocaleString('en-us',{month:'short'})}} {{new Date(projects.projectCreatedAt).getFullYear()}}</div>
                       </div>
                     </div>
                     <a data-delay="200" data-hover="false" data-w-id="302bd047-ad96-1601-c856-cdc87012ab48" class="dropdown1_component w-dropdown" @click="show = !show; id = projects.projectId">
@@ -92,14 +92,14 @@
                 <div class="margin-bottom margin-small">
                   <p class="paragraph-2">{{projects.projectDescription}}</p>
                 </div>
-                <div class="div-block-38">
+                <div class="div-block-38" style="margin-top: auto">
                   <div class="image-stack align-left"><img loading="lazy" src="../../assets/images/avatar.jpg" alt="" class="team-img"><img sizes="(max-width: 991px) 32px, 40px" srcset="../../assets/images/3c6EsddjeL3cqzqgZ69uDpumpzgrbFu4yzax6vs6-p-500.jpeg 500w, ../../assets/images/3c6EsddjeL3cqzqgZ69uDpumpzgrbFu4yzax6vs6-p-800.jpeg 800w, ../../assets/images/3c6EsddjeL3cqzqgZ69uDpumpzgrbFu4yzax6vs6-p-1080.jpeg 1080w, ../../assets/images/3c6EsddjeL3cqzqgZ69uDpumpzgrbFu4yzax6vs6-p-1600.jpeg 1600w, ../../assets/images/3c6EsddjeL3cqzqgZ69uDpumpzgrbFu4yzax6vs6-p-2000.jpeg 2000w, ../../assets/images/3c6EsddjeL3cqzqgZ69uDpumpzgrbFu4yzax6vs6.jpeg 3289w" alt="" src="../../assets/images/3c6EsddjeL3cqzqgZ69uDpumpzgrbFu4yzax6vs6.jpeg" loading="lazy" class="team-img"><img sizes="(max-width: 991px) 32px, 40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" alt="" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" class="team-img"><img sizes="(max-width: 991px) 32px, 40px" srcset="../../assets/images/fhbj-p-500.jpeg 500w, ../../assets/images/fhbj-p-800.jpeg 800w, ../../assets/images/fhbj.jpeg 1000w" alt="" src="../../assets/images/fhbj.jpeg" loading="lazy" class="team-img">
                     <div class="team-img">+4</div>
                   </div>
                 </div>
                 <div class="grid-list4_content-bottom">
                   <div class="margin-top margin-medium">
-                    <router-link :to="`/project-details/${projects.projectId}`" class="btnsec is-secondary is-small full-width w-button">View Project</router-link>
+                    <a @click="goToSingleProject(projects)" class="btnsec is-secondary is-small full-width w-button">View Project</a>
                   </div>
                 </div>
               </div>
@@ -132,6 +132,8 @@
 import DashboardLayout from "@/layout/DashboardLayout";
 import RouterUtils from "@/util/baseUtils/RouterUtils";
 import {mapState} from "vuex";
+import StoreUtils from "@/util/baseUtils/StoreUtils";
+import router from "@/router";
 export default {
   name: "ProjectsView",
   components: { DashboardLayout},
@@ -149,6 +151,13 @@ export default {
     ...mapState(["auth","project"]),
   },
   methods:{
+    goToSingleProject(project){
+      StoreUtils.commit(StoreUtils.mutations.project.updateProject, project)
+      router.push(`/project-details/${project.projectId}`)
+    },
+    getDate(date){
+      return new Date(date).getDate();
+    },
     openNewModal(className){
       document.querySelector(className).style.display = "flex"
       setTimeout(() => {
@@ -193,5 +202,8 @@ export default {
 </script>
 
 <style scoped>
-
+.grid-list4_item{
+  display: flex;
+  flex-direction: column;
+}
 </style>

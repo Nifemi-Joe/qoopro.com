@@ -103,6 +103,10 @@ class RouterUtils {
       team: {
         path: '/team',
         name: 'TeamView'
+      },
+      singleTeam: {
+        path: '/view-team',
+        name: 'ViewTeamView'
       }
     }
   };

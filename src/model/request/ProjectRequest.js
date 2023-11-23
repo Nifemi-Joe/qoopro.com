@@ -14,7 +14,9 @@ class ProjectRequest {
    static read = {
      projectId: null
    }
-
+    static readByTeamId = {
+        teamId: null
+    }
    static addUser = {
        projectId: null,
        userIds: []

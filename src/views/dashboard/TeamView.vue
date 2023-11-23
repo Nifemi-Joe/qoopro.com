@@ -20,12 +20,6 @@
                     </svg></div>
                   </div>
                 </form>
-                <div class="w-form-done">
-                  <div>Thank you! Your submission has been received!</div>
-                </div>
-                <div class="w-form-fail">
-                  <div>Oops! Something went wrong while submitting the form.</div>
-                </div>
               </div>
               <router-link to="/create-team" data-w-id="f306afa8-af5b-a42f-b22c-6c85f31873f2" class="button is-icon w-inline-block">
                 <div class="w-embed"><svg width="21" height="21" viewbox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,16 +39,18 @@
           <div class="grid-list3_component">
             <div class="grid-list3_list-wrapper">
               <div class="grid-list3_list">
-                <div class="teamlistitem">
+                <div class="teamlistitem" v-for="team in teams.teams" :key="team.teamId">
                   <div class="margin-bottom margin-small">
                     <div class="grid-list3_content-top">
                       <div class="grid-list3_image-wrapper">
                         <div class="div-block-36">
-                          <div class="text-block-8">AL</div>
+                          <div class="text-block-8" v-if="team.teamName.split(' ').length > 0">{{team.teamName.split(' ')[0].charAt(0)}}</div>
+                          <div class="text-block-8" v-else>{{team.teamName.charAt(0)}}</div>
+
                         </div>
                       </div>
-                      <div data-hover="false" data-delay="200" data-w-id="57478fe7-c5d4-7563-a477-01ded6ebeae8" class="dropdown1_component w-dropdown">
-                        <div class="dropdown1_toggle w-dropdown-toggle">
+                      <a data-hover="false" data-delay="200" data-w-id="57478fe7-c5d4-7563-a477-01ded6ebeae8" class="dropdown1_component w-dropdown" :class="{'w--open' : openId === team.teamId && showDropdown}" @click="openId = team.teamId; showDropdown = !showDropdown">
+                        <div class="dropdown1_toggle w-dropdown-toggle" :class="{'w--open' : openId === team.teamId && showDropdown}">
                           <div class="btn is-tertiary is-small is-icon-only">
                             <div class="icon-embed-xsmall w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <g clip-path="url(#clip0_609_6561)">
@@ -68,17 +64,17 @@
                             </svg></div>
                           </div>
                         </div>
-                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list">
+                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list" :class="{'w--open' : openId === team.teamId && showDropdown}">
                           <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">View team</a>
+                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link" @click="goToSingleTeam">View team</a>
                           <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
                         </nav>
-                      </div>
+                      </a>
                     </div>
                   </div>
                   <div class="grid-list3_content-bottom">
                     <div class="margin-bottom margin-xsmall">
-                      <div class="text-weight-semibold">Apvertise Limited</div>
+                      <div class="text-weight-semibold">{{team.teamName}}</div>
                       <div class="div-block-37">
                         <div class="team-number">5 Members</div>
                         <div class="team-number">12 Projects</div>
@@ -86,313 +82,7 @@
                     </div>
                     <div class="margin-top margin-medium">
                       <div class="button-group">
-                        <a href="../dashboard/viewteamdetail.html" class="btn is-secondary is-small max-width-full w-button">View Team</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="teamlistitem">
-                  <div class="margin-bottom margin-small">
-                    <div class="grid-list3_content-top">
-                      <div class="grid-list3_image-wrapper">
-                        <div class="div-block-36">
-                          <div class="text-block-8">AL</div>
-                        </div>
-                      </div>
-                      <div data-hover="false" data-delay="200" data-w-id="5960a044-de16-7a6f-40cb-6929d5238708" class="dropdown1_component w-dropdown">
-                        <div class="dropdown1_toggle w-dropdown-toggle">
-                          <div class="btn is-tertiary is-small is-icon-only">
-                            <div class="icon-embed-xsmall w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_609_6561)">
-                                <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM18 10C16.9 10 16 10.9 16 12C16 13.1 16.9 14 18 14C19.1 14 20 13.1 20 12C20 10.9 19.1 10 18 10ZM6 10C4.9 10 4 10.9 4 12C4 13.1 4.9 14 6 14C7.1 14 8 13.1 8 12C8 10.9 7.1 10 6 10Z" fill="currentColor"></path>
-                              </g>
-                              <defs>
-                                <clippath id="clip0_609_6561">
-                                  <rect width="24" height="24" fill="currentColor"></rect>
-                                </clippath>
-                              </defs>
-                            </svg></div>
-                          </div>
-                        </div>
-                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list">
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">View team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
-                        </nav>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="grid-list3_content-bottom">
-                    <div class="margin-bottom margin-xsmall">
-                      <div class="text-weight-semibold">Apvertise Limited</div>
-                      <div class="div-block-37">
-                        <div class="team-number">5 Members</div>
-                        <div class="team-number">12 Projects</div>
-                      </div>
-                    </div>
-                    <div class="margin-top margin-medium">
-                      <div class="button-group">
-                        <a href="../dashboard/viewteamdetail.html" class="btn is-secondary is-small max-width-full w-button">View Team</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="teamlistitem">
-                  <div class="margin-bottom margin-small">
-                    <div class="grid-list3_content-top">
-                      <div class="grid-list3_image-wrapper">
-                        <div class="div-block-36">
-                          <div class="text-block-8">AL</div>
-                        </div>
-                      </div>
-                      <div data-hover="false" data-delay="200" data-w-id="645bdd66-e9d1-1c72-e938-1c1d17295f37" class="dropdown1_component w-dropdown">
-                        <div class="dropdown1_toggle w-dropdown-toggle">
-                          <div class="btn is-tertiary is-small is-icon-only">
-                            <div class="icon-embed-xsmall w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_609_6561)">
-                                <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM18 10C16.9 10 16 10.9 16 12C16 13.1 16.9 14 18 14C19.1 14 20 13.1 20 12C20 10.9 19.1 10 18 10ZM6 10C4.9 10 4 10.9 4 12C4 13.1 4.9 14 6 14C7.1 14 8 13.1 8 12C8 10.9 7.1 10 6 10Z" fill="currentColor"></path>
-                              </g>
-                              <defs>
-                                <clippath id="clip0_609_6561">
-                                  <rect width="24" height="24" fill="currentColor"></rect>
-                                </clippath>
-                              </defs>
-                            </svg></div>
-                          </div>
-                        </div>
-                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list">
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">View team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
-                        </nav>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="grid-list3_content-bottom">
-                    <div class="margin-bottom margin-xsmall">
-                      <div class="text-weight-semibold">Apvertise Limited</div>
-                      <div class="div-block-37">
-                        <div class="team-number">5 Members</div>
-                        <div class="team-number">12 Projects</div>
-                      </div>
-                    </div>
-                    <div class="margin-top margin-medium">
-                      <div class="button-group">
-                        <a href="../dashboard/viewteamdetail.html" class="btn is-secondary is-small max-width-full w-button">View Team</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="teamlistitem">
-                  <div class="margin-bottom margin-small">
-                    <div class="grid-list3_content-top">
-                      <div class="grid-list3_image-wrapper">
-                        <div class="div-block-36">
-                          <div class="text-block-8">AL</div>
-                        </div>
-                      </div>
-                      <div data-hover="false" data-delay="200" data-w-id="076701cd-cd70-35e8-fada-6942ad013e8b" class="dropdown1_component w-dropdown">
-                        <div class="dropdown1_toggle w-dropdown-toggle">
-                          <div class="btn is-tertiary is-small is-icon-only">
-                            <div class="icon-embed-xsmall w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_609_6561)">
-                                <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM18 10C16.9 10 16 10.9 16 12C16 13.1 16.9 14 18 14C19.1 14 20 13.1 20 12C20 10.9 19.1 10 18 10ZM6 10C4.9 10 4 10.9 4 12C4 13.1 4.9 14 6 14C7.1 14 8 13.1 8 12C8 10.9 7.1 10 6 10Z" fill="currentColor"></path>
-                              </g>
-                              <defs>
-                                <clippath id="clip0_609_6561">
-                                  <rect width="24" height="24" fill="currentColor"></rect>
-                                </clippath>
-                              </defs>
-                            </svg></div>
-                          </div>
-                        </div>
-                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list">
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">View team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
-                        </nav>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="grid-list3_content-bottom">
-                    <div class="margin-bottom margin-xsmall">
-                      <div class="text-weight-semibold">Apvertise Limited</div>
-                      <div class="div-block-37">
-                        <div class="team-number">5 Members</div>
-                        <div class="team-number">12 Projects</div>
-                      </div>
-                    </div>
-                    <div class="margin-top margin-medium">
-                      <div class="button-group">
-                        <a href="../dashboard/viewteamdetail.html" class="btn is-secondary is-small max-width-full w-button">View Team</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="teamlistitem">
-                  <div class="margin-bottom margin-small">
-                    <div class="grid-list3_content-top">
-                      <div class="grid-list3_image-wrapper"><img src="https://uploads-ssl.webflow.com/624380709031623bfe4aee60/631035b9698714c1fee46997_Placeholder%20Small%20Image.svg" loading="lazy" alt="" class="grid-list3_image"></div>
-                      <div data-hover="false" data-delay="200" data-w-id="14a3ff02-026a-f6ba-0bbf-f2998b6e8ec0" class="dropdown1_component w-dropdown">
-                        <div class="dropdown1_toggle w-dropdown-toggle">
-                          <div class="btn is-tertiary is-small is-icon-only">
-                            <div class="icon-embed-xsmall w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_609_6561)">
-                                <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM18 10C16.9 10 16 10.9 16 12C16 13.1 16.9 14 18 14C19.1 14 20 13.1 20 12C20 10.9 19.1 10 18 10ZM6 10C4.9 10 4 10.9 4 12C4 13.1 4.9 14 6 14C7.1 14 8 13.1 8 12C8 10.9 7.1 10 6 10Z" fill="currentColor"></path>
-                              </g>
-                              <defs>
-                                <clippath id="clip0_609_6561">
-                                  <rect width="24" height="24" fill="currentColor"></rect>
-                                </clippath>
-                              </defs>
-                            </svg></div>
-                          </div>
-                        </div>
-                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list">
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">View team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
-                        </nav>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="margin-bottom margin-xsmall">
-                    <div class="text-weight-semibold">Apvertise Limited</div>
-                    <div class="div-block-37">
-                      <div class="team-number">5 Members</div>
-                      <div class="team-number">12 Projects</div>
-                    </div>
-                  </div>
-                  <div class="grid-list3_content-bottom">
-                    <div class="margin-top margin-medium">
-                      <div class="button-group">
-                        <a href="#" class="btn is-secondary is-small max-width-full w-button">View Team</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="teamlistitem">
-                  <div class="margin-bottom margin-small">
-                    <div class="grid-list3_content-top">
-                      <div class="grid-list3_image-wrapper"><img src="https://uploads-ssl.webflow.com/624380709031623bfe4aee60/631035b9698714c1fee46997_Placeholder%20Small%20Image.svg" loading="lazy" alt="" class="grid-list3_image"></div>
-                      <div data-hover="false" data-delay="200" data-w-id="2b93b671-7c01-dffc-1047-4302c7854cff" class="dropdown1_component w-dropdown">
-                        <div class="dropdown1_toggle w-dropdown-toggle">
-                          <div class="btn is-tertiary is-small is-icon-only">
-                            <div class="icon-embed-xsmall w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_609_6561)">
-                                <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM18 10C16.9 10 16 10.9 16 12C16 13.1 16.9 14 18 14C19.1 14 20 13.1 20 12C20 10.9 19.1 10 18 10ZM6 10C4.9 10 4 10.9 4 12C4 13.1 4.9 14 6 14C7.1 14 8 13.1 8 12C8 10.9 7.1 10 6 10Z" fill="currentColor"></path>
-                              </g>
-                              <defs>
-                                <clippath id="clip0_609_6561">
-                                  <rect width="24" height="24" fill="currentColor"></rect>
-                                </clippath>
-                              </defs>
-                            </svg></div>
-                          </div>
-                        </div>
-                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list">
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">View team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
-                        </nav>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="margin-bottom margin-xsmall">
-                    <div class="text-weight-semibold">Apvertise Limited</div>
-                    <div class="div-block-37">
-                      <div class="team-number">5 Members</div>
-                      <div class="team-number">12 Projects</div>
-                    </div>
-                  </div>
-                  <div class="grid-list3_content-bottom">
-                    <div class="margin-top margin-medium">
-                      <div class="button-group">
-                        <a href="#" class="btn is-secondary is-small max-width-full w-button">View Team</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="teamlistitem">
-                  <div class="margin-bottom margin-small">
-                    <div class="grid-list3_content-top">
-                      <div class="grid-list3_image-wrapper"><img src="https://uploads-ssl.webflow.com/624380709031623bfe4aee60/631035b9698714c1fee46997_Placeholder%20Small%20Image.svg" loading="lazy" alt="" class="grid-list3_image"></div>
-                      <div data-hover="false" data-delay="200" data-w-id="e6e80a64-8991-9a8b-3c1e-c566609f21a9" class="dropdown1_component w-dropdown">
-                        <div class="dropdown1_toggle w-dropdown-toggle">
-                          <div class="btn is-tertiary is-small is-icon-only">
-                            <div class="icon-embed-xsmall w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_609_6561)">
-                                <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM18 10C16.9 10 16 10.9 16 12C16 13.1 16.9 14 18 14C19.1 14 20 13.1 20 12C20 10.9 19.1 10 18 10ZM6 10C4.9 10 4 10.9 4 12C4 13.1 4.9 14 6 14C7.1 14 8 13.1 8 12C8 10.9 7.1 10 6 10Z" fill="currentColor"></path>
-                              </g>
-                              <defs>
-                                <clippath id="clip0_609_6561">
-                                  <rect width="24" height="24" fill="currentColor"></rect>
-                                </clippath>
-                              </defs>
-                            </svg></div>
-                          </div>
-                        </div>
-                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list">
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">View team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
-                        </nav>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="margin-bottom margin-xsmall">
-                    <div class="text-weight-semibold">Apvertise Limited</div>
-                    <div class="div-block-37">
-                      <div class="team-number">5 Members</div>
-                      <div class="team-number">12 Projects</div>
-                    </div>
-                  </div>
-                  <div class="grid-list3_content-bottom">
-                    <div class="margin-top margin-medium">
-                      <div class="button-group">
-                        <a href="#" class="btn is-secondary is-small max-width-full w-button">View Team</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="teamlistitem">
-                  <div class="margin-bottom margin-small">
-                    <div class="grid-list3_content-top">
-                      <div class="grid-list3_image-wrapper"><img src="https://uploads-ssl.webflow.com/624380709031623bfe4aee60/631035b9698714c1fee46997_Placeholder%20Small%20Image.svg" loading="lazy" alt="" class="grid-list3_image"></div>
-                      <div data-hover="false" data-delay="200" data-w-id="ca83cf90-6834-b1d4-bbf6-ad96dd6263ab" class="dropdown1_component w-dropdown">
-                        <div class="dropdown1_toggle w-dropdown-toggle">
-                          <div class="btn is-tertiary is-small is-icon-only">
-                            <div class="icon-embed-xsmall w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_609_6561)">
-                                <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM18 10C16.9 10 16 10.9 16 12C16 13.1 16.9 14 18 14C19.1 14 20 13.1 20 12C20 10.9 19.1 10 18 10ZM6 10C4.9 10 4 10.9 4 12C4 13.1 4.9 14 6 14C7.1 14 8 13.1 8 12C8 10.9 7.1 10 6 10Z" fill="currentColor"></path>
-                              </g>
-                              <defs>
-                                <clippath id="clip0_609_6561">
-                                  <rect width="24" height="24" fill="currentColor"></rect>
-                                </clippath>
-                              </defs>
-                            </svg></div>
-                          </div>
-                        </div>
-                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list">
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">View team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
-                        </nav>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="margin-bottom margin-xsmall">
-                    <div class="text-weight-semibold">Apvertise Limited</div>
-                    <div class="div-block-37">
-                      <div class="team-number">5 Members</div>
-                      <div class="team-number">12 Projects</div>
-                    </div>
-                  </div>
-                  <div class="grid-list3_content-bottom">
-                    <div class="margin-top margin-medium">
-                      <div class="button-group">
-                        <a href="#" class="btn is-secondary is-small max-width-full w-button">View Team</a>
+                        <a @click="goToSingleTeam(team.teamId, team)" class="btn is-secondary is-small max-width-full w-button">View Team</a>
                       </div>
                     </div>
                   </div>
@@ -414,6 +104,10 @@
 import DashboardLayout from "@/layout/DashboardLayout";
 import InviteTeamMemberModal from "@/components/modals/InviteTeamMemberModal";
 import TeamMemberTasksModal from "@/components/modals/TeamMemberTasksModal";
+import {mapState} from "vuex";
+import StoreUtils from "@/util/baseUtils/StoreUtils";
+import router from "@/router";
+import ProjectRequest from "@/model/request/ProjectRequest";
 export default {
   name: "TeamView",
   components: {TeamMemberTasksModal, InviteTeamMemberModal, DashboardLayout},
@@ -421,10 +115,20 @@ export default {
     return{
       showModal: false,
       showMemberModal: false,
-      nav: false
+      nav: false,
+      openId: "",
+      showDropdown: false,
+      model: ProjectRequest.readByTeamId
     }
   },
   methods:{
+    goToSingleTeam(id, team){
+      this.model.teamId = id
+      StoreUtils.dispatch(StoreUtils.actions.project.readProjectByTeamId , this.model);
+      StoreUtils.dispatch(StoreUtils.actions.team.readTeamById , {teamId: id});
+      StoreUtils.commit(StoreUtils.mutations.team.updateTeam, team);
+      router.push("/view-team")
+    },
     openNewModal(className){
       document.querySelector(className).style.display = "flex"
       setTimeout(() => {
@@ -452,6 +156,9 @@ export default {
     toggleNav(){
       this.nav = !this.nav;
     }
+  },
+  computed: {
+    ...mapState(["auth", "teams"])
   }
 }
 </script>

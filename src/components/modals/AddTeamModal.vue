@@ -20,7 +20,8 @@ export default{
       base64: "",
       url: "",
       showLoader: false,
-      uploadmodel: s3Request.uploadBase64
+      uploadmodel: s3Request.uploadBase64,
+      success: false,
     }
   },
   computed:{
@@ -82,6 +83,7 @@ export default{
       this.model.teamStatus = "ACTIVE";
       StoreUtils.dispatch(StoreUtils.actions.team.createTeam, this.model).then((res) => {
         if (res.responseCode === "00"){
+          this.success = true;
           this.stage++
         }
       });
@@ -164,7 +166,7 @@ export default{
         </div>
       </div>
     </div>
-    <SuccessModal v-if="teams.team.responseCode === '00'" :module="'team'" :module-path="myRoutes.dashboard.team.path"/>
+    <SuccessModal v-if="success" :module="'team'" :module-path="myRoutes.dashboard.team.path"/>
   </section>
 </template>
 

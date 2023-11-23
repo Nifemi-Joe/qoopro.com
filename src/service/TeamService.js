@@ -11,7 +11,7 @@ export default {
         return client.apiClient.post("team/create", payload);
     },
     callReadByIdApi(payload) {
-        return client.apiClient.post("team/read-by-id", payload);
+        return client.apiClient.post("team/read-by-team-id", payload);
     },
     callAddUserToTeamApi(payload) {
         return client.apiClient.post("team/add-user", payload);
