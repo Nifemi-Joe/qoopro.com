@@ -13,6 +13,9 @@ export default {
     callReadByIdApi(payload) {
         return client.apiClient.post("project/read-by-id", payload);
     },
+    callReadByTeamIdApi(payload) {
+        return client.apiClient.post("project/read-by-team-id", payload);
+    },
     callAddUserToProjectApi(payload) {
         return client.apiClient.post("project/add-user", payload);
     },

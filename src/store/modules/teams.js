@@ -6,9 +6,7 @@ import TeamRequest from "@/model/request/TeamRequest";
 export const state = {
     loading: false,
     team: {},
-    teams: {
-        data: []
-    }
+    teams: []
 };
 
 export const getters = {
@@ -28,7 +26,7 @@ export const mutations = {
 };
 
 export const actions = {
-    readTeamId(){
+    readTeamById(){
         StoreUtils.commit(StoreUtils.mutations.team.updateLoading, true)
         return TeamService.callReadByIdApi(TeamRequest.readById).then(response=>{
             StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
@@ -52,12 +50,12 @@ export const actions = {
             console.log(response.data)
             let responseData = response.data;
             if (responseData.responseCode === "00"){
-                BaseNotification.fireToast("success", responseData.responseMessage).then(
-
-                )
+                BaseNotification.fireToast("success", responseData.responseMessage).then()
+                return responseData
             }else{
                 BaseNotification.fireToast("error", responseData.responseMessage).then()
                 StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
+                return responseData
             }
         }).catch(error=>{
             BaseNotification.fireToast("error", error).then()
@@ -71,13 +69,13 @@ export const actions = {
             console.log(response.data)
             let responseData = response.data;
             if (responseData.responseCode === "00"){
-                StoreUtils.commit(StoreUtils.mutations.team.updateTeam, responseData);
                 BaseNotification.fireToast("success", responseData.responseMessage).then()
                 StoreUtils.dispatch("team/readTeam")
                 return responseData
             }else{
                 BaseNotification.fireToast("error", responseData.responseMessage).then()
                 StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
+                return responseData
             }
         }).catch(error=>{
             BaseNotification.fireToast("error", error).then()

@@ -23,6 +23,6 @@ export default {
     return client.apiClient.post("customer/change-password",payload)
   },
   callUserDetailsApi(){
-    return client.apiClient.post("authentication/user-details",{})
+    return client.apiClient.get("authentication/user-details",{})
   }
 };

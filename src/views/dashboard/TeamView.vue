@@ -8,7 +8,6 @@
             <div class="db-header-text">
               <div class="header-text">
                 <p class="heading-large text-color-gray900">Team</p>
-
                 <p class="body-medium text-color-gray500">The Scrum project aims to develop a new software application that will revolutionize the way users interact with their devices.</p>
               </div>
             </div>
@@ -21,176 +20,74 @@
                     </svg></div>
                   </div>
                 </form>
-                <div class="w-form-done">
-                  <div>Thank you! Your submission has been received!</div>
-                </div>
-                <div class="w-form-fail">
-                  <div>Oops! Something went wrong while submitting the form.</div>
-                </div>
               </div>
-              <a @click="openNewModal('.invite-team-modal_component')" data-w-id="f306afa8-af5b-a42f-b22c-6c85f31873f2" href="#" class="button is-icon w-inline-block">
-                <div class="w-embed">
-                  <svg width="21" height="21" viewbox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                   <path d="M10.5 5.25V15.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                   <path d="M5.25 10.5H15.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
-                </div>
-                <div>Invite Team Mate</div>
-              </a>
+              <router-link to="/create-team" data-w-id="f306afa8-af5b-a42f-b22c-6c85f31873f2" class="button is-icon w-inline-block">
+                <div class="w-embed"><svg width="21" height="21" viewbox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.5 5.25V15.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M5.25 10.5H15.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg></div>
+                <div>Create Team</div>
+              </router-link>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="section_shell4-layout">
-      <div class="padding-small padding-top-0">
+    <div class="teamwrapper">
+      <div class="div-block-32">
         <div class="container-large">
-          <div id="w-node-_5a2fb266-a965-cf6c-7a77-946043c2de34-d55540a4" class="w-layout-grid shell4-layout_component is-team">
-            <div id="w-node-_3bed93a0-4718-625c-d9c5-d79301df2062-d55540a4" class="team-grid">
-              <div id="w-node-c693188b-97d1-8f39-cceb-118897e9515b-d55540a4" class="team-member">
-                <div class="team-member-wrapper">
-                  <img src="../../assets/images/avatar.jpg" loading="lazy" alt="" class="team-member-image">
-                  <div class="team-member-text">
-                    <div class="team-member-name">Dele Alli</div>
-                    <div class="body-small">Collaborating on 2 projects</div>
-                  </div>
-                  <div data-hover="false" data-delay="200" data-w-id="c693188b-97d1-8f39-cceb-118897e95163" class="team-member-dropdown-component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle" @click="toggleNav">
-                      <img  src="../../assets/images/more-horizontal.svg" loading="lazy" alt="">
-                    </div>
-                    <nav v-if="nav"
+          <div class="grid-list3_component">
+            <div class="grid-list3_list-wrapper">
+              <div class="grid-list3_list">
+                <div class="teamlistitem" v-for="team in teams.teams" :key="team.teamId">
+                  <div class="margin-bottom margin-small">
+                    <div class="grid-list3_content-top">
+                      <div class="grid-list3_image-wrapper">
+                        <div class="div-block-36">
+                          <div class="text-block-8" v-if="team.teamName.split(' ').length > 0">{{team.teamName.split(' ')[0].charAt(0)}}</div>
+                          <div class="text-block-8" v-else>{{team.teamName.charAt(0)}}</div>
 
-                        :class="nav ? 'dropdown1_dropdown-list-3 w-dropdown-list w--open' : 'dropdown1_dropdown-list-3 w-dropdown-list'"
-                    >
-                      <a @click="openMemberModal" href="#" data-w-id="c693188b-97d1-8f39-cceb-118897e95167" class="dropdown1_dropdown-link-3 w-dropdown-link">View</a>
-                      <a href="#" class="dropdown1_dropdown-link-3 w-dropdown-link">Delete</a>
-                    </nav>
+                        </div>
+                      </div>
+                      <a data-hover="false" data-delay="200" data-w-id="57478fe7-c5d4-7563-a477-01ded6ebeae8" class="dropdown1_component w-dropdown" :class="{'w--open' : openId === team.teamId && showDropdown}" @click="openId = team.teamId; showDropdown = !showDropdown">
+                        <div class="dropdown1_toggle w-dropdown-toggle" :class="{'w--open' : openId === team.teamId && showDropdown}">
+                          <div class="btn is-tertiary is-small is-icon-only">
+                            <div class="icon-embed-xsmall w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <g clip-path="url(#clip0_609_6561)">
+                                <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM18 10C16.9 10 16 10.9 16 12C16 13.1 16.9 14 18 14C19.1 14 20 13.1 20 12C20 10.9 19.1 10 18 10ZM6 10C4.9 10 4 10.9 4 12C4 13.1 4.9 14 6 14C7.1 14 8 13.1 8 12C8 10.9 7.1 10 6 10Z" fill="currentColor"></path>
+                              </g>
+                              <defs>
+                                <clippath id="clip0_609_6561">
+                                  <rect width="24" height="24" fill="currentColor"></rect>
+                                </clippath>
+                              </defs>
+                            </svg></div>
+                          </div>
+                        </div>
+                        <nav class="dropdown1_dropdown-list is-right w-dropdown-list" :class="{'w--open' : openId === team.teamId && showDropdown}">
+                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
+                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link" @click="goToSingleTeam">View team</a>
+                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
+                        </nav>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="grid-list3_content-bottom">
+                    <div class="margin-bottom margin-xsmall">
+                      <div class="text-weight-semibold">{{team.teamName}}</div>
+                      <div class="div-block-37">
+                        <div class="team-number">5 Members</div>
+                        <div class="team-number">12 Projects</div>
+                      </div>
+                    </div>
+                    <div class="margin-top margin-medium">
+                      <div class="button-group">
+                        <a @click="goToSingleTeam(team.teamId, team)" class="btn is-secondary is-small max-width-full w-button">View Team</a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div id="w-node-_0bec3a91-d49d-ecea-6217-fcd9de4bbef3-d55540a4" class="team-member">
-                <div class="team-member-wrapper"><img src="../../assets/images/avatar.jpg" loading="lazy" alt="" class="team-member-image">
-                  <div class="team-member-text">
-                    <div class="team-member-name">Dele Alli</div>
-                    <div class="body-small">Collaborating on 2 projects</div>
-                  </div>
-                  <div data-hover="false" data-delay="200" data-w-id="0bec3a91-d49d-ecea-6217-fcd9de4bbefb" class="team-member-dropdown-component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle"><img src="../../assets/images/more-horizontal.svg" loading="lazy" alt=""></div>
-                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list-3 w-dropdown-list">
-                      <a href="#" data-w-id="0bec3a91-d49d-ecea-6217-fcd9de4bbeff" class="dropdown1_dropdown-link-3 w-dropdown-link">View</a>
-                      <a href="#" class="dropdown1_dropdown-link-3 w-dropdown-link">Delete</a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-              <div id="w-node-c9f11686-0b82-4c38-4e71-b1979cc2b800-d55540a4" class="team-member">
-                <div class="team-member-wrapper"><img src="../../assets/images/avatar.jpg" loading="lazy" alt="" class="team-member-image">
-                  <div class="team-member-text">
-                    <div class="team-member-name">Dele Alli</div>
-                    <div class="body-small">Collaborating on 2 projects</div>
-                  </div>
-                  <div data-hover="false" data-delay="200" data-w-id="c9f11686-0b82-4c38-4e71-b1979cc2b808" class="team-member-dropdown-component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle"><img src="../../assets/images/more-horizontal.svg" loading="lazy" alt=""></div>
-                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list-3 w-dropdown-list">
-                      <a href="#" data-w-id="c9f11686-0b82-4c38-4e71-b1979cc2b80c" class="dropdown1_dropdown-link-3 w-dropdown-link">View</a>
-                      <a href="#" class="dropdown1_dropdown-link-3 w-dropdown-link">Delete</a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-              <div id="w-node-_52561813-203b-28ea-0107-bb3ca5d51c30-d55540a4" class="team-member">
-                <div class="team-member-wrapper"><img src="../../assets/images/avatar.jpg" loading="lazy" alt="" class="team-member-image">
-                  <div class="team-member-text">
-                    <div class="team-member-name">Dele Alli</div>
-                    <div class="body-small">Collaborating on 2 projects</div>
-                  </div>
-                  <div data-hover="false" data-delay="200" data-w-id="52561813-203b-28ea-0107-bb3ca5d51c38" class="team-member-dropdown-component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle"><img src="../../assets/images/more-horizontal.svg" loading="lazy" alt=""></div>
-                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list-3 w-dropdown-list">
-                      <a href="#" data-w-id="52561813-203b-28ea-0107-bb3ca5d51c3c" class="dropdown1_dropdown-link-3 w-dropdown-link">View</a>
-                      <a href="#" class="dropdown1_dropdown-link-3 w-dropdown-link">Delete</a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-              <div id="w-node-_5a5e6271-0e24-8dea-de8a-f02182991715-d55540a4" class="team-member">
-                <div class="team-member-wrapper"><img src="../../assets/images/avatar.jpg" loading="lazy" alt="" class="team-member-image">
-                  <div class="team-member-text">
-                    <div class="team-member-name">Dele Alli</div>
-                    <div class="body-small">Collaborating on 2 projects</div>
-                  </div>
-                  <div data-hover="false" data-delay="200" data-w-id="5a5e6271-0e24-8dea-de8a-f0218299171d" class="team-member-dropdown-component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle"><img src="../../assets/images/more-horizontal.svg" loading="lazy" alt=""></div>
-                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list-3 w-dropdown-list">
-                      <a href="#" data-w-id="5a5e6271-0e24-8dea-de8a-f02182991721" class="dropdown1_dropdown-link-3 w-dropdown-link">View</a>
-                      <a href="#" class="dropdown1_dropdown-link-3 w-dropdown-link">Delete</a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-              <div id="w-node-_32601ed6-8a71-7af2-cff6-ec86447e2c25-d55540a4" class="team-member">
-                <div class="team-member-wrapper"><img src="../../assets/images/avatar.jpg" loading="lazy" alt="" class="team-member-image">
-                  <div class="team-member-text">
-                    <div class="team-member-name">Dele Alli</div>
-                    <div class="body-small">Collaborating on 2 projects</div>
-                  </div>
-                  <div data-hover="false" data-delay="200" data-w-id="32601ed6-8a71-7af2-cff6-ec86447e2c2d" class="team-member-dropdown-component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle"><img src="../../assets/images/more-horizontal.svg" loading="lazy" alt=""></div>
-                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list-3 w-dropdown-list">
-                      <a href="#" data-w-id="32601ed6-8a71-7af2-cff6-ec86447e2c31" class="dropdown1_dropdown-link-3 w-dropdown-link">View</a>
-                      <a href="#" class="dropdown1_dropdown-link-3 w-dropdown-link">Delete</a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-              <div id="w-node-_28c75457-802d-5d02-399d-e627ace8ef97-d55540a4" class="team-member">
-                <div class="team-member-wrapper"><img src="../../assets/images/avatar.jpg" loading="lazy" alt="" class="team-member-image">
-                  <div class="team-member-text">
-                    <div class="team-member-name">Dele Alli</div>
-                    <div class="body-small">Collaborating on 2 projects</div>
-                  </div>
-                  <div data-hover="false" data-delay="200" data-w-id="28c75457-802d-5d02-399d-e627ace8ef9f" class="team-member-dropdown-component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle"><img src="../../assets/images/more-horizontal.svg" loading="lazy" alt=""></div>
-                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list-3 w-dropdown-list">
-                      <a href="#" data-w-id="28c75457-802d-5d02-399d-e627ace8efa3" class="dropdown1_dropdown-link-3 w-dropdown-link">View</a>
-                      <a href="#" class="dropdown1_dropdown-link-3 w-dropdown-link">Delete</a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-              <div id="w-node-_7db3f947-0951-3f0a-3afa-adc748af492b-d55540a4" class="team-member">
-                <div class="team-member-wrapper"><img src="../../assets/images/avatar.jpg" loading="lazy" alt="" class="team-member-image">
-                  <div class="team-member-text">
-                    <div class="team-member-name">Dele Alli</div>
-                    <div class="body-small">Collaborating on 2 projects</div>
-                  </div>
-                  <div data-hover="false" data-delay="200" data-w-id="7db3f947-0951-3f0a-3afa-adc748af4933" class="team-member-dropdown-component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle"><img src="../../assets/images/more-horizontal.svg" loading="lazy" alt=""></div>
-                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list-3 w-dropdown-list">
-                      <a href="#" data-w-id="7db3f947-0951-3f0a-3afa-adc748af4937" class="dropdown1_dropdown-link-3 w-dropdown-link">View</a>
-                      <a href="#" class="dropdown1_dropdown-link-3 w-dropdown-link">Delete</a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-              <div id="w-node-fb25833e-b694-9f14-5beb-e36fa94a450d-d55540a4" class="team-member">
-                <div class="team-member-wrapper"><img src="../../assets/images/avatar.jpg" loading="lazy" alt="" class="team-member-image">
-                  <div class="team-member-text">
-                    <div class="team-member-name">Dele Alli</div>
-                    <div class="body-small">Collaborating on 2 projects</div>
-                  </div>
-                  <div data-hover="false" data-delay="200" data-w-id="fb25833e-b694-9f14-5beb-e36fa94a4515" class="team-member-dropdown-component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle"><img src="../../assets/images/more-horizontal.svg" loading="lazy" alt=""></div>
-                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list-3 w-dropdown-list">
-                      <a href="#" data-w-id="fb25833e-b694-9f14-5beb-e36fa94a4519" class="dropdown1_dropdown-link-3 w-dropdown-link">View</a>
-                      <a href="#" class="dropdown1_dropdown-link-3 w-dropdown-link">Delete</a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e514-d55540a4" class="empty-state hide"><img loading="lazy" src="../../assets/images/TeamEmptyState.svg" alt="">
-              <p class="body-medium text-align-center text-color-gray600">Add Team mates to get started</p>
             </div>
           </div>
         </div>
@@ -207,6 +104,10 @@
 import DashboardLayout from "@/layout/DashboardLayout";
 import InviteTeamMemberModal from "@/components/modals/InviteTeamMemberModal";
 import TeamMemberTasksModal from "@/components/modals/TeamMemberTasksModal";
+import {mapState} from "vuex";
+import StoreUtils from "@/util/baseUtils/StoreUtils";
+import router from "@/router";
+import ProjectRequest from "@/model/request/ProjectRequest";
 export default {
   name: "TeamView",
   components: {TeamMemberTasksModal, InviteTeamMemberModal, DashboardLayout},
@@ -214,10 +115,20 @@ export default {
     return{
       showModal: false,
       showMemberModal: false,
-      nav: false
+      nav: false,
+      openId: "",
+      showDropdown: false,
+      model: ProjectRequest.readByTeamId
     }
   },
   methods:{
+    goToSingleTeam(id, team){
+      this.model.teamId = id
+      StoreUtils.dispatch(StoreUtils.actions.project.readProjectByTeamId , this.model);
+      StoreUtils.dispatch(StoreUtils.actions.team.readTeamById , {teamId: id});
+      StoreUtils.commit(StoreUtils.mutations.team.updateTeam, team);
+      router.push("/view-team")
+    },
     openNewModal(className){
       document.querySelector(className).style.display = "flex"
       setTimeout(() => {
@@ -245,6 +156,9 @@ export default {
     toggleNav(){
       this.nav = !this.nav;
     }
+  },
+  computed: {
+    ...mapState(["auth", "teams"])
   }
 }
 </script>

@@ -19,21 +19,21 @@
               </div>
               <div class="div-block">
                 <div class="div-block-3 div-block-4 div-block-5 div-block-6 div-block-7">
-                  <div data-hover="false" data-delay="200" data-w-id="20d5d306-1412-078f-e8ec-3d18ef241899" class="dropdown1_component w-dropdown">
-                    <div class="dropdown1_toggle w-dropdown-toggle">
+                  <a data-hover="false" data-delay="200" data-w-id="20d5d306-1412-078f-e8ec-3d18ef241899" class="dropdown1_component w-dropdown" @click="show = !show" :class="{'w--open' : show}">
+                    <div class="dropdown1_toggle w-dropdown-toggle" :class="{'w--open' : show}">
                       <div>My day</div>
                       <div class="dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
                       </svg></div>
                     </div>
-                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list w-dropdown-list">
+                    <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown1_dropdown-list w-dropdown-list" :class="{'w--open' : show}">
                       <a href="#" class="dropdown1_dropdown-link w-dropdown-link">My day</a>
                       <a href="#" class="dropdown1_dropdown-link w-dropdown-link">My week</a>
                       <a href="#" class="dropdown1_dropdown-link w-dropdown-link">My month</a>
                     </nav>
-                  </div>
+                  </a>
                   <div class="vertical-divider"></div>
-                  <p class="paragraph"><span class="tasks-completed">0</span> tasks completed</p>
+                  <p class="paragraph"><span class="tasks-completed">{{tasks.length}}</span> tasks completed</p>
                 </div>
               </div>
             </div>
@@ -131,7 +131,8 @@ export default {
      invite: false,
       task: false,
       success: false,
-      today: new Date()
+      today: new Date(),
+      show: false,
     }
   },
   computed:{

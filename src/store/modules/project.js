@@ -44,6 +44,23 @@ export const actions = {
             StoreUtils.commit(StoreUtils.mutations.project.updateLoading, false)
         })
     },
+    readProjectByTeamId(){
+        StoreUtils.commit(StoreUtils.mutations.project.updateLoading, true)
+        return ProjectService.callReadByTeamIdApi(ProjectRequest.readByTeamId).then(response=>{
+            StoreUtils.commit(StoreUtils.mutations.project.updateLoading, false)
+            let responseData = response.data;
+            console.log(responseData.data);
+            if (responseData.responseCode === "00"){
+                StoreUtils.commit(StoreUtils.mutations.project.updateProjects, responseData.data);
+            }else {
+                BaseNotification.fireToast("error", responseData.responseMessage).then()
+            }
+
+        }).catch(error=>{
+            BaseNotification.fireToast("error", error).then()
+            StoreUtils.commit(StoreUtils.mutations.project.updateLoading, false)
+        })
+    },
     updateProject(){
         StoreUtils.commit(StoreUtils.mutations.project.updateLoading, true)
         return ProjectService.callUpdateTakApi(ProjectRequest.update).then(response=>{

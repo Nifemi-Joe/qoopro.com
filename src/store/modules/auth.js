@@ -49,7 +49,7 @@ export const actions = {
         StoreUtils.commit(StoreUtils.mutations.auth.updateUserInfo, responseData.data);
         StoreUtils.dispatch("task/readTask")
         StoreUtils.dispatch("teams/readTeam")
-
+        StoreUtils.dispatch("project/readProject")
         StoreUtils.commit(StoreUtils.mutations.auth.updateToken, responseData.data.token);
 
         localStorage.setItem("token", responseData.data.token);
@@ -123,7 +123,7 @@ export const actions = {
       if (responseData.responseCode === '00'){
         StoreUtils.dispatch("task/readTask")
         StoreUtils.dispatch("teams/readTeam")
-
+        StoreUtils.dispatch("project/readProject")
         StoreUtils.commit(StoreUtils.mutations.auth.updateUserInfo, responseData)
       }
         // else{

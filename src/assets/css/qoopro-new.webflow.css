@@ -2311,7 +2311,7 @@ figcaption {
   background-color: var(--white);
   border-radius: 6px;
   padding: .5rem;
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .dropdown1_dropdown-list.is-right {

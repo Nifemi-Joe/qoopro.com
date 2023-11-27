@@ -8,7 +8,7 @@
               <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-3"></div><input type="checkbox" id="checkbox-81" name="checkbox-8" data-name="Checkbox 8" style="opacity:0;position:absolute;z-index:-1"><span class="checkbox-label w-form-label" for="checkbox-8">Complete UX for new landing page</span>
             </label>
               <div class="task-header-content">
-                <div class="label-medium">Complete UX for new landing page</div>
+                <div class="label-medium">{{task.task.taskName}}</div>
                 <div class="tag-group">
                   <div class="tag-item"><img src="../../assets/images/calendar.svg" loading="lazy" alt="">
                     <div class="body-small text-color-gray400">30 Aug 2022 - 11:30AM</div>
@@ -214,6 +214,8 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: "TaskDetailsModal",
   props:{
@@ -232,6 +234,9 @@ export default {
         document.querySelector(className).style.display = "none"
       },500  )
     },
+  },
+  computed: {
+    ...mapState(["task"])
   }
 }
 </script>
