@@ -1,6 +1,5 @@
    //
    import axios from "axios";
-   import StoreUtils from "@/util/baseUtils/StoreUtils";
    import RouterUtils from "@/util/baseUtils/RouterUtils";
    import BaseNotification from "@/components/notification/BaseNotification";
 
@@ -13,7 +12,7 @@
    });
 
    apiClient.interceptors.request.use((config) => {
-     config.headers.Authorization = StoreUtils.rootGetters(StoreUtils.getters.auth.getToken);
+     config.headers.Authorization = localStorage.getItem("token");
      return config;
    });
 

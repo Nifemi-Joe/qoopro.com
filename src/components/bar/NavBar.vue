@@ -7,20 +7,14 @@
       </a>
       <div id="w-node-_553081dc-4e93-e7af-13cd-e18153923f22-53923f1e" class="topbar2_search-desktop">
         <div class="topbar2_form-block w-form">
-          <form name="wf-form-Search-2-3" data-name="Search 2" method="get" id="email-form1" class="topbar2_form" data-wf-page-id="64bcd81e46471cbebdd67e75" data-wf-element-id="553081dc-4e93-e7af-13cd-e18153923f24">
-            <div class="topbar2_search">
-              <input type="text" class="form-input-2 is-search-input w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Search" id="field-2">
-              <div class="search-icon text-color-gray400 w-embed"><svg width="100%" height="100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 18C11.775 17.9996 13.4988 17.4054 14.897 16.312L19.293 20.708L20.707 19.294L16.311 14.898C17.405 13.4997 17.9996 11.7754 18 10C18 5.589 14.411 2 10 2C5.589 2 2 5.589 2 10C2 14.411 5.589 18 10 18ZM10 4C13.309 4 16 6.691 16 10C16 13.309 13.309 16 10 16C6.691 16 4 13.309 4 10C4 6.691 6.691 4 10 4Z" fill="currentColor"></path>
-              </svg></div>
-            </div>
-          </form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
+<!--          <form name="wf-form-Search-2-3" data-name="Search 2" method="get" id="email-form1" class="topbar2_form" data-wf-page-id="64bcd81e46471cbebdd67e75" data-wf-element-id="553081dc-4e93-e7af-13cd-e18153923f24">-->
+<!--            <div class="topbar2_search">-->
+<!--              <input type="text" class="form-input-2 is-search-input w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Search" id="field-2">-->
+<!--              <div class="search-icon text-color-gray400 w-embed"><svg width="100%" height="100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path d="M10 18C11.775 17.9996 13.4988 17.4054 14.897 16.312L19.293 20.708L20.707 19.294L16.311 14.898C17.405 13.4997 17.9996 11.7754 18 10C18 5.589 14.411 2 10 2C5.589 2 2 5.589 2 10C2 14.411 5.589 18 10 18ZM10 4C13.309 4 16 6.691 16 10C16 13.309 13.309 16 10 16C6.691 16 4 13.309 4 10C4 6.691 6.691 4 10 4Z" fill="currentColor"></path>-->
+<!--              </svg></div>-->
+<!--            </div>-->
+<!--          </form>-->
         </div>
       </div>
       <div id="w-node-_553081dc-4e93-e7af-13cd-e18153923f2e-53923f1e" class="topbar2_content-right">
@@ -35,19 +29,19 @@
           </svg></div>
         </a>
         <div data-hover="false" data-delay="200" class="topbar2_menu-dropdown w-dropdown">
-          <a class="topbar2_dropdown-toggle w-dropdown-toggle" @click="changeShow">
+          <div class="topbar2_dropdown-toggle w-dropdown-toggle" @click="changeShow">
             <div class="button-2 is-tertiary is-small is-icon-only">
               <div class="icon-embed-xsmall w-embed"><svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16.1167 12.0751L15.2833 10.6917C15.1083 10.3834 14.95 9.80008 14.95 9.45841V7.35008C14.95 5.39175 13.8 3.70008 12.1417 2.90841C11.7083 2.14175 10.9083 1.66675 9.99166 1.66675C9.08333 1.66675 8.26666 2.15841 7.83333 2.93341C6.20833 3.74175 5.08333 5.41675 5.08333 7.35008V9.45841C5.08333 9.80008 4.92499 10.3834 4.74999 10.6834L3.90833 12.0751C3.57499 12.6334 3.49999 13.2501 3.70833 13.8167C3.90833 14.3751 4.38333 14.8084 4.99999 15.0167C6.61666 15.5667 8.31666 15.8334 10.0167 15.8334C11.7167 15.8334 13.4167 15.5667 15.0333 15.0251C15.6167 14.8334 16.0667 14.3917 16.2833 13.8167C16.5 13.2417 16.4417 12.6084 16.1167 12.0751Z" fill="currentColor"></path>
                 <path d="M12.3584 16.6751C12.0084 17.6417 11.0834 18.3334 10 18.3334C9.34169 18.3334 8.69169 18.0667 8.23336 17.5917C7.96669 17.3417 7.76669 17.0084 7.65002 16.6667C7.75836 16.6834 7.86669 16.6917 7.98336 16.7084C8.17502 16.7334 8.37502 16.7584 8.57502 16.7751C9.05002 16.8167 9.53336 16.8417 10.0167 16.8417C10.4917 16.8417 10.9667 16.8167 11.4334 16.7751C11.6084 16.7584 11.7834 16.7501 11.95 16.7251C12.0834 16.7084 12.2167 16.6917 12.3584 16.6751Z" fill="currentColor"></path>
               </svg></div>
             </div>
-          </a>
+          </div>
           <nav class="topbar2_dropdown-list w-dropdown-list" :class="{'w--open' : show}">
             <div class="topbar2_dropdown-content">
               <div class="topbar2_notification-header">
                 <div class="text-block-4">Notifications</div>
-                <a href="#" class="button-2 is-link w-button">Mask as read</a>
+                <a href="#" class="button-2 is-link w-button">Mark as read</a>
               </div>
               <div class="topbar2_notification-wrapper">
                 <div class="topbar2_notification">
@@ -85,12 +79,12 @@
                 </div>
               </div>
               <div class="topbar2_notification-buttons">
-                <a href="../dashboard/notificationsview.html" class="button-2 is-link is-icon w-inline-block">
+                <router-link to="/notifications" aria-current="page" class="button-2 is-link is-icon w-inline-block w--current">
                   <div>View All</div>
-                  <div class="icon-embed-xxsmall w-embed"><svg width="100%" height="100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div class="icon-embed-xxsmall w-embed"><svg width="16px" height="16px" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5"></path>
                   </svg></div>
-                </a>
+                </router-link>
               </div>
             </div>
           </nav>
@@ -114,12 +108,6 @@
               </svg></div>
             </div>
           </form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
         </div>
         <div class="topbar2_close-icon">
           <div class="icon-embed-small w-embed"><svg width="100%" height="100%" viewbox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +119,7 @@
     </div>
   </div>
     <WhatToCreateModal/>
-    <CreateTaskModal/>
+    <CreateTaskModal :subtask="false" v-if="openTask"/>
   </div>
 </template>
 
@@ -146,7 +134,8 @@ export default {
   components: {CreateTaskModal, WhatToCreateModal},
   data(){
     return{
-      show: false
+      show: false,
+      openTask: false
     }
   },
   computed:{
@@ -162,13 +151,15 @@ export default {
       this.show = !this.show
     },
     openNewModal(className){
-      document.querySelector(className).style.display = "flex"
+      document.querySelector(className).style.display = "flex";
+      this.openTask = true;
       setTimeout(() => {
         document.querySelector(className).style.opacity = 1
       },500  )
     },
     closeNewModal(className){
-      document.querySelector(className).style.opacity = 0
+      document.querySelector(className).style.opacity = 0;
+      this.openTask = false;
       setTimeout(() => {
         document.querySelector(className).style.display = "none"
       },500  )

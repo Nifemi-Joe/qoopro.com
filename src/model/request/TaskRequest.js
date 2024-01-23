@@ -1,6 +1,6 @@
 class TaskRequest {
     static readById = {
-        customerId: null
+        taskId: null
     }
 
     static update = {

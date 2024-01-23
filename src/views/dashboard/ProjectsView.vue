@@ -18,7 +18,7 @@
                     <div id="w-node-_7001c9ad-45f9-23a5-69e4-f45605f4cb35-1ec551ba" class="topbar2_search-desktop">
                       <div class="topbar2_form-block w-form">
                         <form name="wf-form-Search-2-3" data-name="Search 2" method="get" id="email-form" class="topbar2_form" data-wf-page-id="64d3fb2f9a6113601ec551ba" data-wf-element-id="7001c9ad-45f9-23a5-69e4-f45605f4cb37">
-                          <div class="topbar2_search"><input type="text" class="form-input-2 is-search-input w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Search" id="field-2">
+                          <div class="topbar2_search"><input v-model="search" type="text" class="form-input-2 is-search-input w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Search" id="field-2">
                             <div class="search-icon text-color-gray400 w-embed"><svg width="100%" height="100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M10 18C11.775 17.9996 13.4988 17.4054 14.897 16.312L19.293 20.708L20.707 19.294L16.311 14.898C17.405 13.4997 17.9996 11.7754 18 10C18 5.589 14.411 2 10 2C5.589 2 2 5.589 2 10C2 14.411 5.589 18 10 18ZM10 4C13.309 4 16 6.691 16 10C16 13.309 13.309 16 10 16C6.691 16 4 13.309 4 10C4 6.691 6.691 4 10 4Z" fill="currentColor"></path>
                             </svg></div>
@@ -30,7 +30,7 @@
                 </form>
               </div>
               <div class="div-block-17">
-                <a data-w-id="f306afa8-af5b-a42f-b22c-6c85f31873f2" href="#" class="button is-secondary is-icon w-inline-block">
+                <a data-w-id="f306afa8-af5b-a42f-b22c-6c85f31873f2" href="https://veezahrepo.s3.amazonaws.com/Qoopro_800_003_QooproProductDefinition.xlsm" class="button is-secondary is-icon w-inline-block">
                   <div class="w-embed"><svg width="21" height="21" viewbox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.5 5.25V15.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M5.25 10.5H15.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -84,7 +84,7 @@
                       </div>
                       <nav  class="dropdown1_dropdown-list is-right w-dropdown-list" :class="{'w--open' : show && id === projects.projectId}"  id="w-dropdown-list-1" aria-labelledby="w-dropdown-toggle-1" style="transform: translate3d(0px, 3rem, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; top: 0">
                         <a href="#" class="dropdown1_dropdown-link w-dropdown-link" tabindex="0">Share</a>
-                        <a href="#" class="dropdown1_dropdown-link w-dropdown-link" tabindex="0">Delete</a>
+                        <a href="#" class="dropdown1_dropdown-link w-dropdown-link" tabindex="0" @click="openNewModal('.confirmdelete-modal_component');">Delete</a>
                       </nav>
                     </a>
                   </div>
@@ -119,7 +119,7 @@
       </div>
     </div>
   </main>
-
+  <ConfirmDeleteModal module="project"/>
 <!--  style="-->
 <!--  -webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-->
 <!--  -moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-->
@@ -134,14 +134,20 @@ import RouterUtils from "@/util/baseUtils/RouterUtils";
 import {mapState} from "vuex";
 import StoreUtils from "@/util/baseUtils/StoreUtils";
 import router from "@/router";
+import ProjectRequest from "@/model/request/ProjectRequest";
+import TeamRequest from "@/model/request/TeamRequest";
+import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal.vue";
 export default {
   name: "ProjectsView",
-  components: { DashboardLayout},
+  components: {ConfirmDeleteModal, DashboardLayout},
   data(){
     return{
       actions:false,
       id: "",
       show: false,
+      model: ProjectRequest.read,
+      readmodel: TeamRequest.projectId,
+      search: ""
     }
   },
   computed:{
@@ -152,13 +158,18 @@ export default {
   },
   methods:{
     goToSingleProject(project){
-      StoreUtils.commit(StoreUtils.mutations.project.updateProject, project)
+      this.model.projectId = project.projectId;
+      this.readmodel.projectId = project.projectId;
+      StoreUtils.commit(StoreUtils.mutations.project.updateProject, project);
+      StoreUtils.dispatch(StoreUtils.actions.project.readTaskByProjectId, this.model);
+      StoreUtils.dispatch(StoreUtils.actions.team.readTeamByProjectId, this.readmodel);
       router.push(`/project-details/${project.projectId}`)
     },
     getDate(date){
       return new Date(date).getDate();
     },
     openNewModal(className){
+      StoreUtils.commit(StoreUtils.mutations.project.updateProject, {projectId: this.id})
       document.querySelector(className).style.display = "flex"
       setTimeout(() => {
         document.querySelector(className).style.opacity = 1
@@ -197,7 +208,24 @@ export default {
       console.log(noAmPmSeconds); //10:26
       return noSeconds
     }
+  },
+  watch: {
+    search(){
+      let items = []
+      if (this.search !== ""){
+        this.project.projects.forEach((project) => {
+          if (project.projectName.toLowerCase().includes(this.search.toLowerCase())){
+            items.push(project)
+          }
+        })
+        StoreUtils.commit(StoreUtils.mutations.project.updateProjects, items)
+      }
+      else{
+        StoreUtils.dispatch(StoreUtils.actions.project.readProject)
+      }
+    }
   }
+
 }
 </script>
 

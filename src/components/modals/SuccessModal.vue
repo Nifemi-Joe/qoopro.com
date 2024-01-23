@@ -1,5 +1,5 @@
 <template>
-  <div class="success-modal-component" style="display: flex">
+  <div class="success-modal-component">
     <div class="task-modal_content-wrapper">
       <div class="margin-bottom margin-medium">
         <div class="onboarding-form-block w-form">
@@ -22,12 +22,6 @@
               <router-link :to="modulePath" class="button w-button">Continue</router-link>
             </div>
           </form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
         </div>
       </div>
     </div>

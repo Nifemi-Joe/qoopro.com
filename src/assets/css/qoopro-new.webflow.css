@@ -1891,7 +1891,7 @@ figcaption {
 }
 
 .button-2.is-link.is-icon {
-  grid-column-gap: .5rem;
+  grid-column-gap: 0rem;
   grid-row-gap: .5rem;
   align-items: center;
   display: flex;
@@ -2281,7 +2281,6 @@ figcaption {
 }
 
 .dropdown1_component {
-  z-index: 9;
   color: var(--gray-600);
   margin-left: 0;
   margin-right: 0;
@@ -2449,6 +2448,7 @@ figcaption {
   opacity: 1;
   left: auto;
   right: 0%;
+  z-index: 9;
 }
 
 .user-avatar {
@@ -2463,6 +2463,7 @@ figcaption {
   grid-row-gap: 20px;
   flex-direction: column;
   display: flex;
+  min-height: 600px;
 }
 
 .task-tab-button {
@@ -2631,7 +2632,7 @@ figcaption {
   background-color: var(--white);
   border-radius: 8px;
   padding: .5rem;
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .dropdown1_dropdown-link-3 {
@@ -2934,7 +2935,7 @@ figcaption {
 }
 
 .project-form-input.is-date {
-  background-image: url('../images/calendarIcon.svg');
+  /*background-image: url('../images/calendarIcon.svg');*/
   background-position: 98%;
   background-repeat: no-repeat;
   background-size: auto;
@@ -3067,6 +3068,7 @@ figcaption {
   flex-direction: column;
   padding: 20px;
   display: flex;
+  min-height: 800px;
 }
 
 .settings-header {
@@ -3252,9 +3254,10 @@ figcaption {
   background-color: var(--white);
   border-radius: 4px;
   margin-top: .5rem;
-  opacity: 1;
+  opacity: 1 !important;
   padding: .5rem;
   font-size: .875rem;
+  transform: translate3d(0px, 0rem, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg) !important;
 }
 
 .status-item-dropdown {
@@ -4107,7 +4110,7 @@ figcaption {
   transition: all .2s;
 }
 
-.new-item.project:hover, .new-item.project:visited {
+.new-item.project:hover{
   background-color: var(--primary-100);
   color: var(--white);
 }
@@ -4116,7 +4119,7 @@ figcaption {
   transition: all .2s;
 }
 
-.new-item.task:hover, .new-item.task:visited {
+.new-item.task:hover{
   color: var(--white);
   background-color: #40c4aa;
 }
@@ -4191,9 +4194,13 @@ figcaption {
   display: flex;
 }
 
+.dropdown2_dropdown-list-3{
+  transition: 0.3s all ease-in;
+}
+
 .dropdown2_dropdown-list-3.w--open {
   border: 1px solid var(--primary-25);
-  opacity: 1;
+  opacity: 1 !important;
   background-color: var(--white);
   border-radius: 8px;
   margin-top: .5rem;
@@ -5466,7 +5473,6 @@ figcaption {
   border-color: var(--bg-pressed-100);
   border-radius: 8px;
   flex-direction: column;
-  overflow: auto;
 }
 
 .table9_header-row {

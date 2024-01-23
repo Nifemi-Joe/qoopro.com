@@ -10,10 +10,11 @@ class ProjectRequest {
        projectDescription: null,
        projectStatus: null
    }
-
    static read = {
-     projectId: null
    }
+    static readById = {
+        projectId: null
+    }
     static readByTeamId = {
         teamId: null
     }

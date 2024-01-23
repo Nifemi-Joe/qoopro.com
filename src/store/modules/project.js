@@ -61,6 +61,21 @@ export const actions = {
             StoreUtils.commit(StoreUtils.mutations.project.updateLoading, false)
         })
     },
+    readTaskByProjectId(){
+        StoreUtils.commit(StoreUtils.mutations.project.updateLoading, true)
+        return ProjectService.callTaskProjectApi(ProjectRequest.readById).then(response=>{
+            StoreUtils.commit(StoreUtils.mutations.project.updateLoading, false)
+            let responseData = response.data;
+            console.log(responseData.data);
+            if (responseData.responseCode === "00"){
+                StoreUtils.commit(StoreUtils.mutations.task.updateTasks, responseData.data);
+            }
+
+        }).catch(error=>{
+            BaseNotification.fireToast("error", error).then()
+            StoreUtils.commit(StoreUtils.mutations.project.updateLoading, false)
+        })
+    },
     updateProject(){
         StoreUtils.commit(StoreUtils.mutations.project.updateLoading, true)
         return ProjectService.callUpdateTakApi(ProjectRequest.update).then(response=>{
@@ -68,12 +83,12 @@ export const actions = {
             console.log(response.data)
             let responseData = response.data;
             if (responseData.responseCode === "00"){
-                BaseNotification.fireToast("success", responseData.responseMessage).then(
-
-                )
+                StoreUtils.dispatch(StoreUtils.actions.project.readProject)
+                return responseData
             }else{
                 BaseNotification.fireToast("error", responseData.responseMessage).then()
-                StoreUtils.commit(StoreUtils.mutations.project.updateLoading, false)
+                StoreUtils.commit(StoreUtils.mutations.project.updateLoading, false);
+                return responseData
             }
         }).catch(error=>{
             BaseNotification.fireToast("error", error).then()

@@ -1,6 +1,10 @@
 class TeamRequest {
     static readById = {
-        customerId: null
+        teamId: null
+    }
+
+    static projectId = {
+        projectId: null
     }
 
     static update = {
@@ -21,8 +25,8 @@ class TeamRequest {
     }
 
     static addUser = {
-        taskId: null,
-        customerIds: []
+        teamId: null,
+        teamMemberEmails: []
     }
 
     static removeUser = {

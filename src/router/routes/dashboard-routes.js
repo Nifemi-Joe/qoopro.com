@@ -4,6 +4,7 @@ import ProjectsView from "@/views/dashboard/ProjectsView";
 import SettingsView from "@/views/dashboard/SettingsView";
 import TaskView from "@/views/dashboard/TaskView";
 import TeamView from "@/views/dashboard/TeamView";
+import TaskDetails from "@/views/task/TaskDetails.vue";
 export default [
     {
         path: '/home',
@@ -30,10 +31,22 @@ export default [
         component: SettingsView,
     },
     {
+        path: '/notifications',
+        name: 'NotificationView',
+        meta: {layout: "home", authRequired: false},
+        component: NotificationsView,
+    },
+    {
         path: '/task',
         name: 'TaskView',
         meta: {layout: "home", authRequired: false},
         component: TaskView,
+    },
+    {
+        path: '/view-task/:id',
+        name: 'ViewTaskView',
+        meta: {layout: "home", authRequired: false},
+        component: TaskDetails,
     },
     {
         path: '/team',

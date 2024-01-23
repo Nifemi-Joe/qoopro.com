@@ -10,18 +10,12 @@
               <div class="body-small text-color-gray400">Full Name</div><input type="text" v-model="model.teamName" class="form-input w-input" maxlength="256" name="Form-10-Email-3" data-name="Form 10 Email 3" placeholder="Enter Full Name" id="Form-10-Email-3">
             </div>
             <div class="team-modal-form-field">
-              <div class="body-small text-color-gray400">Email Address</div><input type="email" class="form-input w-input" maxlength="256" name="Form-10-Email-2" data-name="Form 10 Email 2" placeholder="Enter email address" id="Form-10-Email-2">
-            </div>
-            <div class="team-modal-form-field">
-              <div class="body-small text-color-gray400">Add to Project</div><select id="field-4" name="field-4" data-name="Field 4" class="form-input w-select">
-              <option value="">Select project</option>
-              <option value="First">First choice</option>
-              <option value="Second">Second choice</option>
-              <option value="Third">Third choice</option>
-            </select>
+              <div class="body-small text-color-gray400">Email Address</div><input @change="addNew" type="email" class="form-input w-input" maxlength="256" name="Form-10-Email-2" data-name="Form 10 Email 2" placeholder="Enter email address" id="Form-10-Email-2">
             </div>
           </div>
-          <a href="../dashboard/teamview.html" aria-current="page" class="button w-button w--current">Invite</a>
+          <a @click="submit" aria-current="page" class="button w-button w--current" v-if="!teams.loading">Invite</a>
+          <base-buttons v-else/>
+
         </form>
         <div class="success-message w-form-done">
           <div class="success-text">Thank you! Your submission has been received!</div>
@@ -42,18 +36,30 @@
 
 <script>
 import TeamRequest from "@/model/request/TeamRequest";
+import StoreUtils from "@/util/baseUtils/StoreUtils";
+import {mapState} from "vuex";
+import BaseButtons from "@/components/buttons/BaseButtons.vue";
 
 export default {
   name: "InviteTeamMemberModal",
+  components: {BaseButtons},
   props:{
     closeModal: Function
   },
   data(){
     return {
-      model: TeamRequest.create
+      model: TeamRequest.addUser,
+      teamModel: TeamRequest.readById,
+      email: []
     }
   },
+  computed:{
+    ...mapState(["teams"])
+  },
   methods:{
+    addNew(event){
+      this.model.teamMemberEmails.push(event.target.value)
+    },
     openNewModal(className){
       document.querySelector(className).style.display = "flex"
       setTimeout(() => {
@@ -66,6 +72,18 @@ export default {
         document.querySelector(className).style.display = "none"
       },500  )
     },
+    async submit(){
+      this.model.teamId = this.teams.team.teamId;
+      this.teamModel.teamId = this.teams.team.teamId;
+      await StoreUtils.dispatch("teams/addUserToTeam", this.model).then((res)=>{
+        if (res.responseCode === "00"){
+          StoreUtils.dispatch("teams/readMemebersById", this.teamModel)
+          this.closeNewModal(".invite-team-modal_component")
+          this.model.teamMemberEmails = [];
+        }
+      })
+
+    }
   }
 
 }

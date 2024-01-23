@@ -18,6 +18,7 @@ export default{
       stage: 1,
       email: [],
       count: 1,
+      display: 3,
       fileName: "",
       base64: "",
       url: "",
@@ -32,6 +33,7 @@ export default{
       teams: state => state.teams,
       auth: state => state.auth,
       sbucket: state => state.sbucket,
+      customers: state => state.customer.customers
     }),
     myRoutes(){
       return RouterUtils.routes
@@ -39,6 +41,10 @@ export default{
   },
   methods:{
     addNew(event){
+      this.email.push(event.target.value)
+    },
+    addNew2(event){
+      this.count++;
       this.email.push(event.target.value)
     },
     uploadFile(id) {
@@ -68,7 +74,7 @@ export default{
     async uploadOfficerImage() {
       this.showLoader = true;
       this.uploadmodel.username = `${
-          this.auth.userInfo.userFirstName + this.auth.userInfo.userLastName
+          this.auth.userInfo.customerFirstName + this.auth.userInfo.customerLastName
       }_${Date.now()}`;
       this.uploadmodel.base64 = this.base64;
       await this.$store.dispatch(
@@ -81,7 +87,8 @@ export default{
       this.showLoader = false;
     },
     async submit(){
-      this.model.teamLeader = `${this.auth.userInfo.data.customerId}`;
+      this.model.teamId = this.id;
+      this.model.teamLeader = `${this.auth.userInfo.customerId}`;
       this.model.teamLogo = this.url;
       if (this.email.length > 0){
         this.model.teamMembers = this.email;
@@ -103,7 +110,9 @@ export default{
   },
   mounted(){
     this.id = this.teams.team.teamId;
-    this.model.teamName = this.teams.t
+    this.model.teamName = this.teams.team.teamName;
+    this.model.teamDescription = this.teams.team.teamDescription;
+    this.url = this.teams.team.teamLogo;
     StoreUtils.commit(StoreUtils.mutations.team.updateTeam, {responseCode: "100"})
   }
 }
@@ -132,9 +141,9 @@ export default{
                         <div class="project-form-item"><label for="Team" class="body-small text-color-gray400">Team Description</label><textarea v-model="model.teamDescription" class="project-form-input w-input" maxlength="256" name="Team" data-name="Team" placeholder="Enter a Team Description..." id="Team Description" required="" style="height: 100px; padding: 10px 14px"></textarea></div>
                         <div class="addmembersitem" v-if="teams.teams.length > 0"><label for="field" class="body-small text-color-gray400">Invite Existing Team Members</label>
                           <div class="div-block-34">
-                            <div class="inviteteammember" v-for="(team, index) in teams.teams" :key="index"><select class="project-form-input isicon-left w-input" maxlength="256" name="Form-4-Email" data-name="Form 4 Email" id="Form-4-Email">
+                            <div class="inviteteammember" v-for="(team, index) in display" :key="index"><select @change="addNew" class="project-form-input isicon-left w-input" maxlength="256" name="Form-4-Email" data-name="Form 4 Email" id="Form-4-Email">
                               <option value="" selected>joe@email.com</option>
-                              <option v-for="(member, index) in team.members" :key="index" :value="member.email">{{member.email}}</option>
+                              <option v-for="(member, index) in customers" :key="index" :value="member.customerEmail">{{member.customerEmail}}</option>
                             </select>
                               <div class="form-icon-left">
                                 <div class="icon-embed-xsmall-2 w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,7 +151,17 @@ export default{
                                 </svg></div>
                               </div>
                             </div>
+                            <div class="inviteteammember" v-for="(count, index) in count" :key="index"><input @change="addNew2" type="email" class="project-form-input isicon-left w-input" maxlength="256" name="Form-4-Email-2" data-name="Form 4 Email 2" placeholder="joe@email.com" id="Form-4-Email-2">
+                              <div class="form-icon-left">
+                                <div class="icon-embed-xsmall-2 w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M20 4H4C2.897 4 2 4.897 2 6V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V6C22 4.897 21.103 4 20 4ZM20 6V6.511L12 12.734L4 6.512V6H20ZM4 18V9.044L11.386 14.789C11.5611 14.9265 11.7773 15.0013 12 15.0013C12.2227 15.0013 12.4389 14.9265 12.614 14.789L20 9.044L20.002 18H4Z" fill="currentColor"></path>
+                                </svg></div>
+                              </div>
+                            </div>
+                            <a class="btnsec is-secondary is-small w-button" @click="display++">Add another</a>
+
                           </div>
+
                         </div>
                         <a @click="submit" data-w-id="b4a5cdc3-fa52-947e-f764-d0c7849eeada" v-if="!teams.loading" class="button w-button">Continue</a>
                         <base-buttons v-else/>
@@ -159,8 +178,8 @@ export default{
     </main>
   </DashboardLayout>
 </template>
-
-<style scoped>
+template'
+'<style scoped>
 .create-project-nav-menu{
   justify-content: end;
 }

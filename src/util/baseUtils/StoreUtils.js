@@ -20,10 +20,19 @@ class StoreUtils {
         task: {
             createTask: "task/createTask",
             readTask: "task/readTask",
-            readTaskById: "task/readTaskById",
+            readTaskById: "task/readTaskId",
             updateTask: "task/updateTask",
             addUserToTask: "task/addUserToTask",
             removeUserTask: "task/removeUserTask",
+        },
+        subtask: {
+            createSubTask: "subtask/createSubTask",
+            readSubTask: "subtask/readSubTask",
+            readSubTaskById: "subtask/readSubTaskId",
+            updateSubTask: "subtask/updateSubTask",
+            addUserToSubTask: "subtask/addUserToSubTask",
+            removeUserSubTask: "subtask/removeUserSubTask",
+            readSubTaskByTaskId: "subtask/readSubTaskByTaskId"
         },
         project: {
             createProject: "project/createProject",
@@ -33,11 +42,14 @@ class StoreUtils {
             updateProject: "project/updateProject",
             addUserToProject: "project/addUserToProject",
             removeUserProject: "project/removeUserProject",
+            readTaskByProjectId: "project/readTaskByProjectId"
         },
         team: {
             createTeam: "teams/createTeam",
             readTeam: "teams/readTeam",
+            readMemebersById: "teams/readMemebersById",
             readTeamById: "teams/readTeamById",
+            readTeamByProjectId: "teams/readTeamByProjectId",
             updateTeam: "teams/updateTeam",
             addUserToTeam: "teams/addUserToTeam",
             removeUserTeam: "teams/removeUserTeam",
@@ -59,6 +71,11 @@ class StoreUtils {
             updateTask: "task/updateTask",
             updateTasks: "task/updateTasks"
         },
+        subtask: {
+            updateLoading: "subtask/updateLoading",
+            updateSubTask: "subtask/updateSubTask",
+            updateSubTasks: "subtask/updateSubTasks"
+        },
         project: {
             updateLoading: "project/updateLoading",
             updateProject: "project/updateProject",
@@ -67,7 +84,9 @@ class StoreUtils {
         team: {
             updateLoading: "teams/updateLoading",
             updateTeam: "teams/updateTeam",
-            updateTeams: "teams/updateTeams"
+            updateTeams: "teams/updateTeams",
+            updateTeamMembers: "teams/updateTeamMembers",
+            updateAllTeamMembers: "teams/updateAllTeamMembers"
         }
     };
 

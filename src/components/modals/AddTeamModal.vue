@@ -15,6 +15,7 @@ export default{
       model: TeamRequest.create,
       stage: 1,
       email: [],
+      allMembers: [],
       count: 1,
       fileName: "",
       base64: "",
@@ -62,7 +63,7 @@ export default{
     async uploadOfficerImage() {
       this.showLoader = true;
       this.uploadmodel.username = `${
-          this.auth.userInfo.userFirstName + this.auth.userInfo.userLastName
+          this.auth.userInfo.customerFirstName + this.auth.userInfo.customerLastName
       }_${Date.now()}`;
       this.uploadmodel.base64 = this.base64;
       await this.$store.dispatch(
@@ -75,7 +76,7 @@ export default{
       this.showLoader = false;
     },
     async submit(){
-      this.model.teamLeader = `${this.auth.userInfo.data.customerId}`;
+      this.model.teamLeader = `${this.auth.userInfo.customerId}`;
       this.model.teamLogo = this.url;
       if (this.email.length > 0){
         this.model.teamMembers = this.email;
@@ -125,11 +126,11 @@ export default{
                     <form id="email-form" name="email-form" data-name="Email Form" method="get" class="project-form" data-wf-page-id="6530689dfc1fd2625494b77c" data-wf-element-id="6ee099a6-dc2f-6a7c-2ced-0d9fde2ba525">
                       <div class="project-form-item"><label for="Team" class="body-small text-color-gray400">Team Name</label><input type="text" v-model="model.teamName" class="project-form-input w-input" maxlength="256" name="Team" data-name="Team" placeholder="Enter a Team name" id="Team" required=""></div>
                       <div class="project-form-item"><label for="Team" class="body-small text-color-gray400">Team Description</label><textarea v-model="model.teamDescription" class="project-form-input w-input" maxlength="256" name="Team" data-name="Team" placeholder="Enter a Team Description..." id="Team Description" required="" style="height: 100px; padding: 10px 14px"></textarea></div>
-                      <div class="addmembersitem" v-if="teams.teams.length > 0"><label for="field" class="body-small text-color-gray400">Invite Existing Team Members</label>
+                      <div class="addmembersitem" v-if="teams.allTeamMembers.length > 0"><label for="field" class="body-small text-color-gray400">Invite Existing Team Members</label>
                         <div class="div-block-34">
-                          <div class="inviteteammember" v-for="(team, index) in teams.teams" :key="index"><select class="project-form-input isicon-left w-input" maxlength="256" name="Form-4-Email" data-name="Form 4 Email" id="Form-4-Email">
-                            <option value="" selected>joe@email.com</option>
-                            <option v-for="(member, index) in team.members" :key="index" :value="member.email">{{member.email}}</option>
+                          {{tem}}
+                          <div class="inviteteammember" v-for="(member, index) in teams.allTeamMembers" :key="index"><select class="project-form-input isicon-left w-input" maxlength="256" name="Form-4-Email" data-name="Form 4 Email" id="Form-4-Email">
+                            <option :value="member.customerEmail" >{{member.customerEmail}}</option>
                           </select>
                             <div class="form-icon-left">
                               <div class="icon-embed-xsmall-2 w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

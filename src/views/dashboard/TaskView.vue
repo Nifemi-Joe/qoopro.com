@@ -51,8 +51,8 @@
               <div class="task-content-pane w-tab-content">
                 <div data-w-tab="Tab 1" :class="all ? 'w-tab-pane w--tab-active' : 'w-tab-pane'">
                   <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e444-c8c2e92a" class="tasks" v-if="tasks.tasks.length > 0">
-                    <div @click="openNewModal('.open-task-modal_component');goToSingleTask(task)" class="task-list-item" v-for="task in tasks.tasks" :key="task.taskId">
-                      <div class="task-list-text">
+                    <div class="task-list-item" v-for="task in tasks.tasks" :key="task.taskId">
+                      <div class="task-list-text" @click="goToSingleTask(task)" style="width: 60%;">
                         <div class="form-checkbox-icon"></div>
                         <p class="body-small text-color-gray600">{{task.taskName}}</p>
                       </div>
@@ -61,16 +61,14 @@
                         <div class="task-comments"><img loading="lazy" src="../../assets/images/ChatDots.svg" alt="">
                           <div>3</div>
                         </div><img loading="lazy" src="../../assets/images/avatar.jpg" alt="" class="user-avatar">
-                        <div data-delay="200" data-hover="false" data-w-id="b3dabba4-892a-3241-f4d8-ab3b5084e452" class="dropdown1_component-2 w-dropdown">
-                          <div class="more_toggle w-dropdown-toggle">
+                        <div data-delay="200" @click="openNav = !openNav; id = task.taskId" data-hover="false" data-w-id="b3dabba4-892a-3241-f4d8-ab3b5084e452" class="dropdown1_component-2 w-dropdown" :class="{'w--open' : openNav && id === task.taskId}">
+                          <div class="more_toggle w-dropdown-toggle" :class="{'w--open' : openNav && id === task.taskId}">
                             <img loading="lazy" src="../../assets/images/more-horizontal.svg" alt="">
-                            <base-buttons v-if="false"/>
                           </div>
 
-                          <nav class="more_dropdown-list w-dropdown-list">
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option One</a>
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option Two</a>
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option Three</a>
+                          <nav class="more_dropdown-list w-dropdown-list" :class="{'w--open' : openNav && id === task.taskId}">
+                            <a @click="goToSingleTask(task)" href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">View Task</a>
+                            <a @click="openNewModal('.confirmdelete-modal_component')" href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Delete Task</a>
                           </nav>
                         </div>
                       </div>
@@ -82,8 +80,8 @@
                 </div>
                 <div data-w-tab="Tab 2" :class="overdue ? 'w-tab-pane w--tab-active' : 'w-tab-pane'">
                   <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e444-c8c2e92a" class="tasks" v-if="overdueTask.length > 0">
-                    <div @click="openNewModal('.open-task-modal_component');goToSingleTask(task)" class="task-list-item" v-for="task in overdueTask" :key="task.taskId">
-                      <div class="task-list-text">
+                    <a class="task-list-item" v-for="task in overdueTask" :key="task.taskId">
+                      <div class="task-list-text" @click="goToSingleTask(task)" style="width: 60%;">
                         <div class="form-checkbox-icon"></div>
                         <p class="body-small text-color-gray600">{{task.taskName}}</p>
                       </div>
@@ -92,29 +90,27 @@
                         <div class="task-comments"><img loading="lazy" src="../../assets/images/ChatDots.svg" alt="">
                           <div>3</div>
                         </div><img loading="lazy" src="../../assets/images/avatar.jpg" alt="" class="user-avatar">
-                        <div data-delay="200" data-hover="false" data-w-id="b3dabba4-892a-3241-f4d8-ab3b5084e452" class="dropdown1_component-2 w-dropdown">
-                          <div class="more_toggle w-dropdown-toggle">
+                        <div data-delay="200" @click="openNav = !openNav; id = task.taskId" data-hover="false" data-w-id="b3dabba4-892a-3241-f4d8-ab3b5084e452" class="dropdown1_component-2 w-dropdown" :class="{'w--open' : openNav && id === task.taskId}">
+                          <div class="more_toggle w-dropdown-toggle" :class="{'w--open' : openNav && id === task.taskId}">
                             <img loading="lazy" src="../../assets/images/more-horizontal.svg" alt="">
-                            <base-buttons v-if="false"/>
                           </div>
 
-                          <nav class="more_dropdown-list w-dropdown-list">
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option One</a>
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option Two</a>
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option Three</a>
+                          <nav class="more_dropdown-list w-dropdown-list" :class="{'w--open' : openNav && id === task.taskId}">
+                            <a @click="goToSingleTask(task)" href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">View Task</a>
+                            <a @click="openNewModal('.confirmdelete-modal_component')" href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Delete Task</a>
                           </nav>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
                   <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e514-c8c2e92a" class="empty-state" v-else><img loading="lazy" src="../../assets/images/TasksEmptyState.svg" alt="">
-                    <p class="body-medium text-align-center text-color-gray600">There are no new tasks</p>
+                    <p class="body-medium text-align-center text-color-gray600">There are no overdue tasks</p>
                   </div>
                 </div>
                 <div data-w-tab="Tab 3" :class="ongoing ? 'w-tab-pane w--tab-active' : 'w-tab-pane'">
                   <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e444-c8c2e92a" class="tasks" v-if="ongoingTask.length > 0">
-                    <div @click="openNewModal('.open-task-modal_component')" class="task-list-item" v-for="task in ongoingTask" :key="task.taskId">
-                      <div class="task-list-text">
+                    <a class="task-list-item" v-for="task in ongoingTask" :key="task.taskId">
+                      <div class="task-list-text" @click="goToSingleTask(task)" style="width: 60%;">
                         <div class="form-checkbox-icon"></div>
                         <p class="body-small text-color-gray600">{{task.taskName}}</p>
                       </div>
@@ -123,29 +119,27 @@
                         <div class="task-comments"><img loading="lazy" src="../../assets/images/ChatDots.svg" alt="">
                           <div>3</div>
                         </div><img loading="lazy" src="../../assets/images/avatar.jpg" alt="" class="user-avatar">
-                        <div data-delay="200" data-hover="false" data-w-id="b3dabba4-892a-3241-f4d8-ab3b5084e452" class="dropdown1_component-2 w-dropdown">
-                          <div class="more_toggle w-dropdown-toggle">
+                        <div data-delay="200" @click="openNav = !openNav; id = task.taskId" data-hover="false" data-w-id="b3dabba4-892a-3241-f4d8-ab3b5084e452" class="dropdown1_component-2 w-dropdown" :class="{'w--open' : openNav && id === task.taskId}">
+                          <div class="more_toggle w-dropdown-toggle" :class="{'w--open' : openNav && id === task.taskId}">
                             <img loading="lazy" src="../../assets/images/more-horizontal.svg" alt="">
-                            <base-buttons v-if="false"/>
                           </div>
 
-                          <nav class="more_dropdown-list w-dropdown-list">
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option One</a>
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option Two</a>
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option Three</a>
+                          <nav class="more_dropdown-list w-dropdown-list" :class="{'w--open' : openNav && id === task.taskId}">
+                            <a @click="goToSingleTask(task)" href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">View Task</a>
+                            <a @click="openNewModal('.confirmdelete-modal_component')" href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Delete Task</a>
                           </nav>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
                   <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e514-c8c2e92a" class="empty-state" v-else><img loading="lazy" src="../../assets/images/TasksEmptyState.svg" alt="">
-                    <p class="body-medium text-align-center text-color-gray600">There are no new tasks</p>
+                    <p class="body-medium text-align-center text-color-gray600">There are no ongoing tasks</p>
                   </div>
                 </div>
                 <div data-w-tab="Tab 4" :class="completed ? 'w-tab-pane w--tab-active' : 'w-tab-pane'">
                   <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e444-c8c2e92a" class="tasks" v-if="completedTask.length > 0">
-                    <div @click="openNewModal('.open-task-modal_component');goToSingleTask(task)" class="task-list-item" v-for="task in completedTask" :key="task.taskId">
-                      <div class="task-list-text">
+                    <div class="task-list-item" v-for="task in completedTask" :key="task.taskId">
+                      <div class="task-list-text" @click="goToSingleTask(task)" style="width: 60%;">
                         <div class="form-checkbox-icon"></div>
                         <p class="body-small text-color-gray600">{{task.taskName}}</p>
                       </div>
@@ -154,25 +148,23 @@
                         <div class="task-comments"><img loading="lazy" src="../../assets/images/ChatDots.svg" alt="">
                           <div>3</div>
                         </div><img loading="lazy" src="../../assets/images/avatar.jpg" alt="" class="user-avatar">
-                        <div data-delay="200" data-hover="false" data-w-id="b3dabba4-892a-3241-f4d8-ab3b5084e452" class="dropdown1_component-2 w-dropdown">
-                          <div class="more_toggle w-dropdown-toggle">
+                        <div data-delay="200" @click="openNav = !openNav; id = task.taskId" data-hover="false" data-w-id="b3dabba4-892a-3241-f4d8-ab3b5084e452" class="dropdown1_component-2 w-dropdown" :class="{'w--open' : openNav && id === task.taskId}">
+                          <div class="more_toggle w-dropdown-toggle" :class="{'w--open' : openNav && id === task.taskId}">
                             <img loading="lazy" src="../../assets/images/more-horizontal.svg" alt="">
-                            <base-buttons v-if="false"/>
                           </div>
 
-                          <nav class="more_dropdown-list w-dropdown-list">
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option One</a>
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option Two</a>
-                            <a href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">Option Three</a>
+                          <nav class="more_dropdown-list w-dropdown-list" :class="{'w--open' : openNav && id === task.taskId}">
+                            <a @click="goToSingleTask(task)" href="#" class="dropdown1_dropdown-link-2 w-dropdown-link">View Task</a>
+                            <a class="dropdown1_dropdown-link-2 w-dropdown-link" @click="openNewModal('.confirmdelete-modal_component')">Delete Task</a>
                           </nav>
                         </div>
-                      </div>
                     </div>
                   </div>
-                  <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e514-c8c2e92a" class="empty-state" v-else><img loading="lazy" src="../../assets/images/TasksEmptyState.svg" alt="">
-                    <p class="body-medium text-align-center text-color-gray600">There are no new tasks</p>
                   </div>
-                </div>
+                  <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e514-c8c2e92a" class="empty-state" v-else><img loading="lazy" src="../../assets/images/TasksEmptyState.svg" alt="">
+                    <p class="body-medium text-align-center text-color-gray600">There are no completed tasks</p>
+                  </div>
+              </div>
               </div>
             </div>
           </div>
@@ -180,7 +172,9 @@
       </div>
     </div>
   </main>
+  <ConfirmDeleteModal module="task"/>
   <TaskDetailsModal/>
+  <CreateTaskModal :subtask="false"/>
 </DashboardLayout>
 </template>
 
@@ -188,18 +182,26 @@
 import DashboardLayout from "@/layout/DashboardLayout";
 import TaskDetailsModal from "@/components/modals/TaskDetailsModal";
 import {mapState} from "vuex";
-import BaseButtons from "@/components/buttons/BaseButtons";
 import StoreUtils from "@/util/baseUtils/StoreUtils";
+import router from "@/router";
+import TaskRequest from "@/model/request/TaskRequest";
+import SubTaskRequest from "@/model/request/SubTaskRequest";
+import CreateTaskModal from "@/components/modals/CreateTaskModal.vue";
+import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal.vue";
 export default {
   name: "TaskView",
-  components: {BaseButtons, TaskDetailsModal, DashboardLayout},
+  components: {ConfirmDeleteModal, CreateTaskModal, TaskDetailsModal, DashboardLayout},
   data() {
     return {
       task: false,
       all: true,
       ongoing:false,
+      model: TaskRequest.readById,
+      subtaskmodel: SubTaskRequest.readByTaskId,
       overdue: false,
-      completed: false
+      completed: false,
+      openNav: false,
+      id: null
     }
   },
   computed:{
@@ -215,7 +217,7 @@ export default {
     ongoingTask(){
       let ongoingTask = [];
       this.tasks.tasks.forEach((task) => {
-        if (task.taskStatus === "ONGOING"){
+        if (task.taskStatus === "ONGOING" || task.taskStatus === "IN PROGRESS" || task.taskStatus === "ACTIVE"){
           ongoingTask.push(task)
         }
       })
@@ -243,9 +245,14 @@ export default {
   methods: {
     goToSingleTask(task){
       StoreUtils.commit(StoreUtils.mutations.task.updateTask, task)
+      this.model.taskId = task.taskId;
+      this.subtaskmodel.taskId = task.taskId;
+      StoreUtils.dispatch(StoreUtils.actions.subtask.readSubTaskByTaskId, {taskId: task.taskId})
       StoreUtils.dispatch(StoreUtils.actions.task.readTaskById, {taskId: task.taskId})
+      router.push(`/view-task/${task.taskId}`)
     },
     openNewModal(className){
+      StoreUtils.commit(StoreUtils.mutations.task.updateTask, {taskId: this.id})
       document.querySelector(className).style.display = "flex"
       setTimeout(() => {
         document.querySelector(className).style.opacity = 1

@@ -5,7 +5,8 @@ import CustomerRequest from "@/model/request/CustomerRequest";
 
 export const state = {
     loading: false,
-    customerDetails: {}
+    customerDetails: {},
+    customers: []
 };
 
 export const getters = {
@@ -18,6 +19,9 @@ export const mutations = {
     },
     updateCustomer(state, payload){
         state.customerDetails = payload
+    },
+    updateCustomers(state, payload){
+        state.customers = payload
     }
 };
 
@@ -46,11 +50,27 @@ export const actions = {
             console.log(response.data)
             let responseData = response.data;
             if (responseData.responseCode === "00"){
-                BaseNotification.fireToast("success", responseData.responseMessage).then(
-
-                )
+                StoreUtils.dispatch(StoreUtils.actions.auth.getUserDetails)
+                return responseData
             }else{
                 BaseNotification.fireToast("error", responseData.responseMessage).then()
+                StoreUtils.commit(StoreUtils.mutations.customer.updateLoading, false)
+                return responseData
+            }
+        }).catch(error=>{
+            BaseNotification.fireToast("error", error).then()
+            StoreUtils.commit(StoreUtils.mutations.customer.updateLoading, false)
+        })
+    },
+    readCustomer(){
+        StoreUtils.commit(StoreUtils.mutations.customer.updateLoading, true)
+        return CustomerService.callReadCustomerApi().then(response=>{
+            StoreUtils.commit(StoreUtils.mutations.customer.updateLoading, false)
+            console.log(response.data)
+            let responseData = response.data;
+            if (responseData.responseCode === "00"){
+                StoreUtils.commit("customer/updateCustomers", responseData.data)
+            }else{
                 StoreUtils.commit(StoreUtils.mutations.customer.updateLoading, false)
             }
         }).catch(error=>{
@@ -58,5 +78,4 @@ export const actions = {
             StoreUtils.commit(StoreUtils.mutations.customer.updateLoading, false)
         })
     },
-
 };

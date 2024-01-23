@@ -11,7 +11,7 @@ export default {
         return client.apiClient.post("task/create", payload);
     },
     callReadByIdApi(payload) {
-        return client.apiClient.post("task/read-by-id", payload);
+        return client.apiClient.post("task/read-by-task-id", payload);
     },
     callAddUserToTaskApi(payload) {
         return client.apiClient.post("task/add-user", payload);

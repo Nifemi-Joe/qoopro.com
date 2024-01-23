@@ -7,7 +7,7 @@ import StoreUtils from "@/util/baseUtils/StoreUtils";
 export const state = {
     s3bucketLoading: false,
     s3bucketResponse: S3Response.prototype.uploadBase64Response(),
-    url: null
+    url: ""
 };
 export const getters = {};
 export const mutations = {

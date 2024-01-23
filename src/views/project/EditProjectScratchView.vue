@@ -4,14 +4,13 @@
       <div class="container-large">
         <div class="padding-section-large">
           <div class="create-project-nav-menu">
-            <router-link :to="routesProject.project.createProject.path" class="create-project-nav-link w-inline-block"><img src="../../assets/images/ArrowLeft.svg" loading="lazy" alt=""></router-link>
             <router-link :to="routesProject.dashboard.homeView.path" class="create-project-nav-link w-inline-block"><img src="../../assets/images/X.svg" loading="lazy" alt=""></router-link>
           </div>
           <div class="createteamwrapper">
             <div class="contact-modal5_content-wrapper">
               <div class="createteamformwrapper">
                 <div class="project-modal-header">
-                  <h2 class="display-x-small">Create a new project</h2>
+                  <h2 class="display-x-small">Edit your project</h2>
                   <p class="body-large">How would you like to start ?</p>
                 </div>
                 <div class="max-width-medium align-center">
@@ -21,13 +20,13 @@
                   </div>
                   <div class="w-form">
                     <form id="email-form" name="email-form" data-name="Email Form" method="get" class="project-form" data-wf-page-id="64d4ea1f600bd67e51e4f540" data-wf-element-id="6ee099a6-dc2f-6a7c-2ced-0d9fde2ba525">
-                      <div class="project-form-item"><label for="Team" class="body-small text-color-gray400">Project Name</label><input type="text" v-model="model.projectName" class="project-form-input w-input" maxlength="256" name="Team" data-name="Team" placeholder="Enter a Project name" id="Team" required=""></div>
+                      <div class="project-form-item"><label for="Team" class="body-small text-color-gray400">Project Name</label><input type="text" v-model="model.projectName" class="project-form-input w-input" maxlength="256" name="Team" data-name="Team" placeholder="Enter a Team name" id="Team" required=""></div>
                       <div class="project-form-item">
                         <label for="name-2" class="body-small text-color-gray400">Due Date</label>
                         <input onfocus="(this.type = 'date')" type="email" class="project-form-input is-date w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="Select due date" id="name-2" v-model="model.projectDueDate">
                       </div>
                       <div class="project-form-item"><label for="field" class="body-small text-color-gray400">Project Description</label><textarea v-model="model.projectDescription" placeholder="Enter project description" maxlength="5000" id="field" name="field" data-name="Field" class="project-form-input text-area w-input"></textarea></div>
-                      <div class="project-form-item" v-if="teams.teams.length > 0"><label for="Select-Team" class="body-small text-color-gray400">Select team</label><select id="Select-Team" name="Select-Team" data-name="Select Team" class="project-form-input w-select">
+                      <div class="project-form-item" v-if="teams.teams.length > 0"><label for="Select-Team" class="body-small text-color-gray400">Select team</label><select id="Select-Team" name="Select-Team" data-name="Select Team" class="project-form-input w-select" v-model="model.teamId">
                         <option value="">Select team</option>
                         <option :value="teamss.teamId" v-for="(teamss, index) in teams.teams" :key="index">{{teamss.teamName}}</option>
                       </select></div>
@@ -58,11 +57,11 @@ import BaseButtons from "@/components/buttons/BaseButtons.vue";
 import router from "@/router";
 
 export default {
-  name: "CreateProjectScratchView",
+  name: "EditProjectScratchView",
   data(){
     return{
       showSuccess: false,
-      model: ProjectRequest.create,
+      model: ProjectRequest.update,
       showLoader: false,
       uploadmodel: S3Request.uploadBase64,
       fileName: "",
@@ -80,10 +79,14 @@ export default {
   methods:{
     create(){
       this.model.projectLogo = this.url;
-      StoreUtils.dispatch(StoreUtils.actions.project.createProject, this.model).then(()=>{
-        setTimeout(() => {
-          router.push("/projects")
-        },2000)
+      this.model.projectId = this.project.project.projectId;
+      this.model.projectStatus = this.project.project.projectStatus;
+      StoreUtils.dispatch(StoreUtils.actions.project.updateProject, this.model).then((res)=>{
+        if(res.responseCode === "00"){
+          BaseNotification.fireToast("success", "Completed successfully")
+          StoreUtils.dispatch(StoreUtils.actions.project.readProject)
+          router.push(`/project-details/${this.project.project.projectId}`)
+        }
       })
     },
     openModal(){
@@ -118,7 +121,6 @@ export default {
     },
     async uploadOfficerImage() {
       this.showLoader = true;
-      console.log(this.auth.userInfo)
       this.uploadmodel.username = `${
           this.auth.userInfo.customerFirstName + this.auth.userInfo.customerLastName
       }_${Date.now()}`;
@@ -134,6 +136,9 @@ export default {
     },
   },
   mounted(){
+    this.model.projectName = this.project.project.projectName;
+    this.model.projectDescription = this.project.project.projectDescription;
+    this.model.
     StoreUtils.commit(StoreUtils.mutations.project.updateProject , {responseCode: "100"})
 
   }

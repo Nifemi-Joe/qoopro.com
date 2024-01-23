@@ -14,7 +14,7 @@
             <div class="db-team-actions">
               <div class="topbar3_form-block w-form">
                 <form name="wf-form-Search-3-4" data-name="Search 3" method="get" id="email-form" class="topbar3_form" data-wf-page-id="64d3a6f732558478d55540a4" data-wf-element-id="686e9b05-89ac-dc0b-1d4f-19ac5f85d099">
-                  <div class="topbar3_search"><input type="text" class="form-input-4 is-search-input w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Search" id="field-3">
+                  <div class="topbar3_search"><input v-model="search" type="text" class="form-input-4 is-search-input w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="Search" id="field-3">
                     <div class="search-icon w-embed"><svg width="100%" height="100%" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M10 18C11.775 17.9996 13.4988 17.4054 14.897 16.312L19.293 20.708L20.707 19.294L16.311 14.898C17.405 13.4997 17.9996 11.7754 18 10C18 5.589 14.411 2 10 2C5.589 2 2 5.589 2 10C2 14.411 5.589 18 10 18ZM10 4C13.309 4 16 6.691 16 10C16 13.309 13.309 16 10 16C6.691 16 4 13.309 4 10C4 6.691 6.691 4 10 4Z" fill="currentColor"></path>
                     </svg></div>
@@ -38,12 +38,13 @@
         <div class="container-large">
           <div class="grid-list3_component">
             <div class="grid-list3_list-wrapper">
-              <div class="grid-list3_list">
+              <div class="grid-list3_list" v-if="teams.teams.length > 0">
                 <div class="teamlistitem" v-for="team in teams.teams" :key="team.teamId">
                   <div class="margin-bottom margin-small">
                     <div class="grid-list3_content-top">
-                      <div class="grid-list3_image-wrapper">
-                        <div class="div-block-36">
+                      <img :src="team.teamLogo" class="grid-list3_image-wrapper" alt="Photo" v-if="team.teamLogo" style="width:64px; height: 64px; border-radius: 100px"/>
+                      <div class="grid-list3_image-wrapper" v-else>
+                        <div class="div-block-36" v-if="team.teamName">
                           <div class="text-block-8" v-if="team.teamName.split(' ').length > 0">{{team.teamName.split(' ')[0].charAt(0)}}</div>
                           <div class="text-block-8" v-else>{{team.teamName.charAt(0)}}</div>
 
@@ -65,9 +66,9 @@
                           </div>
                         </div>
                         <nav class="dropdown1_dropdown-list is-right w-dropdown-list" :class="{'w--open' : openId === team.teamId && showDropdown}">
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Edit team</a>
+                          <router-link to="/edit-team" @click="commitId" class="dropdown1_dropdown-link w-dropdown-link">Edit team</router-link>
                           <a href="#" class="dropdown1_dropdown-link w-dropdown-link" @click="goToSingleTeam">View team</a>
-                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link">Delete team</a>
+                          <a href="#" class="dropdown1_dropdown-link w-dropdown-link" @click="openNewModal('.confirmdelete-modal_component')">Delete team</a>
                         </nav>
                       </a>
                     </div>
@@ -88,12 +89,16 @@
                   </div>
                 </div>
               </div>
+              <div id="w-node-b3dabba4-892a-3241-f4d8-ab3b5084e514-c8c2e92a" class="empty-state" v-else><img loading="lazy" src="../../assets/images/TasksEmptyState.svg" alt="">
+                <p class="body-medium text-align-center text-color-gray600">There are no teams</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </main>
+  <ConfirmDeleteModal module="team"/>
   <InviteTeamMemberModal/>
   <TeamMemberTasksModal v-if="showMemberModal" :close-modal="closeMemberModal"/>
 
@@ -108,28 +113,38 @@ import {mapState} from "vuex";
 import StoreUtils from "@/util/baseUtils/StoreUtils";
 import router from "@/router";
 import ProjectRequest from "@/model/request/ProjectRequest";
+import TeamRequest from "@/model/request/TeamRequest";
+import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal.vue";
 export default {
   name: "TeamView",
-  components: {TeamMemberTasksModal, InviteTeamMemberModal, DashboardLayout},
+  components: {ConfirmDeleteModal, TeamMemberTasksModal, InviteTeamMemberModal, DashboardLayout},
   data(){
     return{
       showModal: false,
       showMemberModal: false,
       nav: false,
       openId: "",
+      search: "",
       showDropdown: false,
-      model: ProjectRequest.readByTeamId
+      model: ProjectRequest.readByTeamId,
+      teammodel: TeamRequest.readById
     }
   },
   methods:{
+    commitId(){
+      StoreUtils.commit(StoreUtils.mutations.team.updateTeam, {teamId: this.openId})
+    },
     goToSingleTeam(id, team){
-      this.model.teamId = id
+      this.model.teamId = id;
+      this.teammodel.teamId = id;
       StoreUtils.dispatch(StoreUtils.actions.project.readProjectByTeamId , this.model);
+      StoreUtils.dispatch(StoreUtils.actions.team.readMemebersById , this.teammodel);
       StoreUtils.dispatch(StoreUtils.actions.team.readTeamById , {teamId: id});
       StoreUtils.commit(StoreUtils.mutations.team.updateTeam, team);
       router.push("/view-team")
     },
     openNewModal(className){
+      StoreUtils.commit(StoreUtils.mutations.team.updateTeam, {teamId: this.openId})
       document.querySelector(className).style.display = "flex"
       setTimeout(() => {
         document.querySelector(className).style.opacity = 1
@@ -159,6 +174,22 @@ export default {
   },
   computed: {
     ...mapState(["auth", "teams"])
+  },
+  watch: {
+    search(){
+      let items = []
+      if (this.search !== ""){
+        this.teams.teams.forEach((team) => {
+          if (team.teamName.toLowerCase().includes(this.search.toLowerCase())){
+            items.push(team)
+          }
+        })
+        StoreUtils.commit(StoreUtils.mutations.team.updateTeams, items)
+      }
+      else{
+        StoreUtils.dispatch(StoreUtils.actions.team.readTeam)
+      }
+    }
   }
 }
 </script>

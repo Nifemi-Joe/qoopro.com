@@ -8,8 +8,14 @@
               <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-3"></div><input type="checkbox" id="checkbox-81" name="checkbox-8" data-name="Checkbox 8" style="opacity:0;position:absolute;z-index:-1"><span class="checkbox-label w-form-label" for="checkbox-8">Complete UX for new landing page</span>
             </label>
               <div class="task-header-content">
-                <div class="label-medium">{{task.task.taskName}}</div>
+                <div class="label-medium">{{subtask.subtask.subTaskName}}</div>
+                <p class="body-medium text-color-gray500">{{subtask.subtask.subTaskDescription}}</p>
+
                 <div class="tag-group">
+                  <!--                    <div class="tag-item"><img src="../../assets/images/calendar.svg" loading="lazy" alt="">-->
+                  <!--                      <div class="body-small text-color-gray400" v-if="tasks.task.taskDueDate">{{getDate(tasks.task.taskDueDate)}} {{new Date(tasks.task.taskDueDate).toLocaleString('en-us',{month:'short'})}} {{new Date(tasks.task.taskDueDate).getFullYear()}} - {{getTime(tasks.task.taskDueDate)}}</div>-->
+                  <!--                      <div class="body-small text-color-gray400" v-else>{{getDate(tasks.task.taskCreatedAt)}} {{new Date(tasks.task.taskCreatedAt).toLocaleString('en-us',{month:'short'})}} {{new Date(tasks.task.taskCreatedAt).getFullYear()}} - {{getTime(tasks.task.taskCreatedAt)}}</div>-->
+                  <!--                    </div>-->
                   <div class="tag-item"><img src="../../assets/images/calendar.svg" loading="lazy" alt="">
                     <div class="body-small text-color-gray400">30 Aug 2022 - 11:30AM</div>
                   </div>
@@ -22,151 +28,28 @@
                   </div>
                 </div>
                 <div class="task-status">
-                  <div data-hover="false" data-delay="200" data-w-id="92dbf34d-fa9f-b6f0-e495-ef64e98f4347" class="dropdown2_component w-dropdown">
-                    <div class="dropdown2_toggle-3 w-dropdown-toggle">
-                      <div class="body-xsmall text-color-gray600">Select Status</div>
+                  <a @click="openNav = !openNav" :class="{'w--open' : openNav}" data-hover="false" data-delay="200" data-w-id="92dbf34d-fa9f-b6f0-e495-ef64e98f4347" class="dropdown2_component w-dropdown">
+                    <div class="dropdown2_toggle-3 w-dropdown-toggle" :class="{'w--open' : openNav}">
+                      <div class="body-xsmall text-color-gray600">{{selectedStatus}}</div>
                       <div class="dropdown2_dropdown-icon-3 w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
                       </svg></div>
                     </div>
-                    <nav class="dropdown2_dropdown-list-3 w-dropdown-list">
-                      <a href="#" class="status-item-dropdown w-dropdown-link">In Progress</a>
-                      <a href="#" class="status-item-dropdown w-dropdown-link">Overdue</a>
-                      <a href="#" class="status-item-dropdown w-dropdown-link">Completed</a>
+                    <nav class="dropdown2_dropdown-list-3 w-dropdown-list" :class="{'w--open' : openNav}">
+                      <a href="#" class="status-item-dropdown w-dropdown-link" @click="selectedStatus = 'In Progress'">In Progress</a>
+                      <a href="#" class="status-item-dropdown w-dropdown-link" @click="selectedStatus = 'Overdue'">Overdue</a>
+                      <a href="#" class="status-item-dropdown w-dropdown-link" @click="selectedStatus = 'Completed'">Completed</a>
                     </nav>
-                  </div>
+                  </a>
                   <div class="task-status-item"><img src="../../assets/images/Hexagon.svg" loading="lazy" alt="">
-                    <div class="body-small">In Progress</div>
+                    <div class="body-small" v-if="subtask.subtask.subTaskStatus === 'ACTIVE' || subtask.subtask.subTaskStatus === 'IN PROGRESS' || subtask.subtask.subTaskStatus === 'ONGOING'">In Progress</div>
+                    <div class="body-small" v-else-if="subtask.subtask.subTaskStatus === 'OVERDUE'">Overdue</div>
+                    <div class="body-small" v-else>Completed</div>
                   </div>
                 </div>
               </div>
             </div>
           </form>
-          <div class="w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div class="w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
-        </div>
-      </div>
-      <div class="subtasks">
-        <div class="subtask-title">
-          <div class="sub-task-title-text">
-            <div class="body-large text-color-gray600">Subtasks</div>
-            <p class="body-small text-color-gray600">You can add subtasks and assign to others</p>
-          </div>
-          <a href="#" class="button is-icon small w-inline-block">
-            <div class="label-small">+</div>
-            <div class="label-small">Add SubTask</div>
-          </a>
-        </div>
-        <div class="subtasks-div">
-          <div class="subtask-item">
-            <div class="form-block-2 w-form">
-              <form id="email-form-21" name="email-form-2" data-name="Email Form 2" method="get" data-wf-page-id="64c09e2a2b95cbe3c8c2e92a" data-wf-element-id="207b1a22-dd03-0d80-2508-9ca04774d512">
-                <div class="div-block-30"><label class="w-checkbox checkbox-field-2 margin-0">
-                  <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-3"></div><input type="checkbox" id="checkbox-84" name="checkbox-8" data-name="Checkbox 8" style="opacity:0;position:absolute;z-index:-1"><span class="checkbox-label w-form-label" for="checkbox-8">Complete UX for new landing page</span>
-                </label>
-                  <div class="task-header-content">
-                    <div class="body-small text-color-gray600">Complete UX for new landing page</div>
-                    <div class="tag-group">
-                      <div class="tag-item"><img src="../../assets/images/calendar.svg" loading="lazy" alt="">
-                        <div class="body-small text-color-gray400">30 Aug 2022 - 11:30AM</div>
-                      </div>
-                      <div class="tag-item"><img src="../../assets/images/tag.svg" loading="lazy" alt="">
-                        <div class="body-small text-color-gray400">UX</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              <div class="w-form-done">
-                <div>Thank you! Your submission has been received!</div>
-              </div>
-              <div class="w-form-fail">
-                <div>Oops! Something went wrong while submitting the form.</div>
-              </div>
-            </div>
-            <div data-hover="false" data-delay="200" data-w-id="207b1a22-dd03-0d80-2508-9ca04774d52a" class="dropdown1_component-3 w-dropdown">
-              <div class="dropdown1_toggle-2 w-dropdown-toggle"><img src="../../assets/images/more-blue.svg" loading="lazy" alt=""></div>
-              <nav class="dropdown1_dropdown-list-4 w-dropdown-list">
-                <a href="#" class="dropdown1_dropdown-link-4 w-dropdown-link">Option One</a>
-                <a href="#" class="dropdown1_dropdown-link-4 w-dropdown-link">Option Two</a>
-                <a href="#" class="dropdown1_dropdown-link-4 w-dropdown-link">Option Three</a>
-              </nav>
-            </div>
-          </div>
-          <div class="subtask-item">
-            <div class="form-block-2 w-form">
-              <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get" data-wf-page-id="64c09e2a2b95cbe3c8c2e92a" data-wf-element-id="207b1a22-dd03-0d80-2508-9ca04774d536">
-                <div class="div-block-30"><label class="w-checkbox checkbox-field-2 margin-0">
-                  <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-3"></div><input type="checkbox" id="checkbox-83" name="checkbox-8" data-name="Checkbox 8" style="opacity:0;position:absolute;z-index:-1"><span class="checkbox-label w-form-label" for="checkbox-8">Complete UX for new landing page</span>
-                </label>
-                  <div class="task-header-content">
-                    <div class="body-small text-color-gray600">Complete UX for new landing page</div>
-                    <div class="tag-group">
-                      <div class="tag-item"><img src="../../assets/images/calendar.svg" loading="lazy" alt="">
-                        <div class="body-small text-color-gray400">30 Aug 2022 - 11:30AM</div>
-                      </div>
-                      <div class="tag-item"><img src="../../assets/images/tag.svg" loading="lazy" alt="">
-                        <div class="body-small text-color-gray400">UX</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              <div class="w-form-done">
-                <div>Thank you! Your submission has been received!</div>
-              </div>
-              <div class="w-form-fail">
-                <div>Oops! Something went wrong while submitting the form.</div>
-              </div>
-            </div>
-            <div data-hover="false" data-delay="200" data-w-id="207b1a22-dd03-0d80-2508-9ca04774d54e" class="dropdown1_component-3 w-dropdown">
-              <div class="dropdown1_toggle-2 w-dropdown-toggle"><img src="../../assets/images/more-blue.svg" loading="lazy" alt=""></div>
-              <nav class="dropdown1_dropdown-list-4 w-dropdown-list">
-                <a href="#" class="dropdown1_dropdown-link-4 w-dropdown-link">Option One</a>
-                <a href="#" class="dropdown1_dropdown-link-4 w-dropdown-link">Option Two</a>
-                <a href="#" class="dropdown1_dropdown-link-4 w-dropdown-link">Option Three</a>
-              </nav>
-            </div>
-          </div>
-          <div class="subtask-item">
-            <div class="form-block-2 w-form">
-              <form id="email-form-22" name="email-form-2" data-name="Email Form 2" method="get" data-wf-page-id="64c09e2a2b95cbe3c8c2e92a" data-wf-element-id="207b1a22-dd03-0d80-2508-9ca04774d55a">
-                <div class="div-block-30"><label class="w-checkbox checkbox-field-2 margin-0">
-                  <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox-3"></div><input type="checkbox" id="checkbox-82" name="checkbox-8" data-name="Checkbox 8" style="opacity:0;position:absolute;z-index:-1"><span class="checkbox-label w-form-label" for="checkbox-8">Complete UX for new landing page</span>
-                </label>
-                  <div class="task-header-content">
-                    <div class="body-small text-color-gray600">Complete UX for new landing page</div>
-                    <div class="tag-group">
-                      <div class="tag-item"><img src="../../assets/images/calendar.svg" loading="lazy" alt="">
-                        <div class="body-small text-color-gray400">30 Aug 2022 - 11:30AM</div>
-                      </div>
-                      <div class="tag-item"><img src="../../assets/images/tag.svg" loading="lazy" alt="">
-                        <div class="body-small text-color-gray400">UX</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              <div class="w-form-done">
-                <div>Thank you! Your submission has been received!</div>
-              </div>
-              <div class="w-form-fail">
-                <div>Oops! Something went wrong while submitting the form.</div>
-              </div>
-            </div>
-            <div data-hover="false" data-delay="200" data-w-id="207b1a22-dd03-0d80-2508-9ca04774d572" class="dropdown1_component-3 w-dropdown">
-              <div class="dropdown1_toggle-2 w-dropdown-toggle"><img src="../../assets/images/more-blue.svg" loading="lazy" alt=""></div>
-              <nav class="dropdown1_dropdown-list-4 w-dropdown-list">
-                <a href="#" class="dropdown1_dropdown-link-4 w-dropdown-link">Option One</a>
-                <a href="#" class="dropdown1_dropdown-link-4 w-dropdown-link">Option Two</a>
-                <a href="#" class="dropdown1_dropdown-link-4 w-dropdown-link">Option Three</a>
-              </nav>
-            </div>
-          </div>
         </div>
       </div>
       <div class="comment-section">
@@ -210,14 +93,23 @@
       </a>
     </div>
     <div data-w-id="207b1a22-dd03-0d80-2508-9ca04774d5a2" class="modal_background-overlay"></div>
+  <ConfirmDeleteModal module="subtask"/>
   </div>
 </template>
 
 <script>
 import {mapState} from "vuex";
+import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal.vue";
 
 export default {
   name: "TaskDetailsModal",
+  components: {ConfirmDeleteModal},
+  data(){
+    return {
+      openNav: false,
+      selectedStatus: "Select Status"
+    }
+  },
   props:{
     closeModal: Function
   },
@@ -236,7 +128,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["task"])
+    ...mapState(["task","subtask"])
   }
 }
 </script>

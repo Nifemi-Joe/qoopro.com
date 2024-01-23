@@ -19,7 +19,11 @@ export default {
     // HelloWorld
   },
   mounted() {
-    StoreUtils.dispatch(StoreUtils.actions.auth.getUserDetails)
+    if (location.pathname !== "/"){
+      if (location.pathname !== "/login"){
+        StoreUtils.dispatch(StoreUtils.actions.auth.getUserDetails)
+      }
+    }
 
   }
 }

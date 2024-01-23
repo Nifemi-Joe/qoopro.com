@@ -100,6 +100,10 @@ class RouterUtils {
         path: '/task',
         name: 'TaskView'
       },
+      singleTask: {
+        path: '/view-task/',
+        name: 'ViewTaskView'
+      },
       team: {
         path: '/team',
         name: 'TeamView'

@@ -92,7 +92,7 @@
                   </div>
                   <div class="field-label margin-0">Add new task</div>
                 </router-link>
-                <a v-else @click="openNewModal('.create-task-modal_component')"  data-w-id="38673351-4e20-1e7a-184c-eca8f11d9322" href="#" class="setup-btn w-inline-block">
+                <a v-else @click="openTask = true; openNewModal('.create-task-modal_component')"  data-w-id="38673351-4e20-1e7a-184c-eca8f11d9322" href="#" class="setup-btn w-inline-block">
                   <div class="w-embed">
                     <svg width="20" height="20" viewbox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M10 4.75V15.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -109,6 +109,7 @@
       </div>
     </div>
   </main>
+  <CreateTaskModal :subtask="false" v-if="openTask"/>
   <WhatToCreateModal/>
   <InviteTeamMemberModal/>
   <SuccessModal v-if="success" :close-modal="closeSuccessModal" :module="'task'" :module-path="myRoutes.dashboard.task.path"/>
@@ -123,11 +124,13 @@ import InviteTeamMemberModal from "@/components/modals/InviteTeamMemberModal";
 import SuccessModal from "@/components/modals/SuccessModal";
 import {mapState} from "vuex";
 import WhatToCreateModal from "@/components/modals/WhatToCreateModal";
+import CreateTaskModal from "@/components/modals/CreateTaskModal.vue";
 export default {
   name: "HomeView",
-  components: {WhatToCreateModal, SuccessModal, InviteTeamMemberModal, DashboardLayout},
+  components: {CreateTaskModal, WhatToCreateModal, SuccessModal, InviteTeamMemberModal, DashboardLayout},
   data(){
     return{
+      openTask: false,
      invite: false,
       task: false,
       success: false,
@@ -152,6 +155,7 @@ export default {
   },
   methods:{
     openNewModal(className){
+      console.log(document.querySelectorAll('.create-task-modal_component'));
       document.querySelector(className).style.display = "flex"
       setTimeout(() => {
         document.querySelector(className).style.opacity = 1

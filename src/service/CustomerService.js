@@ -6,5 +6,9 @@ export default {
     },
     callUpdateCustomerApi(payload) {
         return client.apiClient.post("customer/update", payload);
+    },
+    callReadCustomerApi(payload) {
+        return client.apiClient.post("customer/read", payload);
     }
+
 }

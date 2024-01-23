@@ -6,7 +6,9 @@ import TeamRequest from "@/model/request/TeamRequest";
 export const state = {
     loading: false,
     team: {},
-    teams: []
+    teams: [],
+    teamMembers: [],
+    allTeamMembers: []
 };
 
 export const getters = {
@@ -19,6 +21,12 @@ export const mutations = {
     },
     updateTeam(state, payload){
         state.team = payload
+    },
+    updateTeamMembers(state, payload){
+        state.teamMembers = payload
+    },
+    updateAllTeamMembers(state, payload){
+        state.allTeamMembers = payload
     },
     updateTeams(state, payload){
         state.teams = payload
@@ -43,6 +51,42 @@ export const actions = {
             StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
         })
     },
+    readTeamByProjectId(){
+        StoreUtils.commit(StoreUtils.mutations.team.updateLoading, true)
+        return TeamService.callReadByProjectIdApi(TeamRequest.projectId).then(response=>{
+            StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
+            let responseData = response.data;
+            console.log(responseData.data);
+            if (responseData.responseCode === "00"){
+                StoreUtils.commit(StoreUtils.mutations.team.updateTeams, responseData.data);
+            }else {
+                BaseNotification.fireToast("error", responseData.responseMessage).then()
+            }
+
+        }).catch(error=>{
+            BaseNotification.fireToast("error", error).then()
+            StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
+        })
+    },
+    readMemebersById(){
+        StoreUtils.commit(StoreUtils.mutations.team.updateLoading, true)
+        return TeamService.callReadMembersApi(TeamRequest.readById).then(response=>{
+            StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
+            let responseData = response.data;
+            console.log(responseData.data);
+            if (responseData.responseCode === "00"){
+                StoreUtils.commit(StoreUtils.mutations.team.updateTeamMembers, responseData.data);
+                return responseData
+            }else {
+                BaseNotification.fireToast("error", responseData.responseMessage).then();
+                return responseData
+            }
+
+        }).catch(error=>{
+            BaseNotification.fireToast("error", error).then()
+            StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
+        })
+    },
     updateTeam(){
         StoreUtils.commit(StoreUtils.mutations.team.updateLoading, true)
         return TeamService.callUpdateTakApi(TeamRequest.update).then(response=>{
@@ -50,7 +94,7 @@ export const actions = {
             console.log(response.data)
             let responseData = response.data;
             if (responseData.responseCode === "00"){
-                BaseNotification.fireToast("success", responseData.responseMessage).then()
+                StoreUtils.dispatch(StoreUtils.actions.team.readTeam)
                 return responseData
             }else{
                 BaseNotification.fireToast("error", responseData.responseMessage).then()
@@ -88,7 +132,18 @@ export const actions = {
             StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
             console.log(response.data)
             let responseData = response.data;
+            let model = TeamRequest.readById;
             if (responseData.responseCode === "00"){
+                let allMembers = []
+                responseData.data.forEach((team) => {
+                    model.teamId = team.teamId;
+                    StoreUtils.dispatch(StoreUtils.actions.team.readMemebersById).then((res) => {
+                        res.data.forEach((member) => {
+                            allMembers.push(member)
+                        })
+                    })
+                })
+                StoreUtils.commit(StoreUtils.mutations.team.updateAllTeamMembers, allMembers)
                 StoreUtils.commit(StoreUtils.mutations.team.updateTeams, responseData.data)
             }else{
                 StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
@@ -108,9 +163,11 @@ export const actions = {
                 BaseNotification.fireToast("success", responseData.responseMessage).then(
 
                 )
+                return responseData
             }else{
                 BaseNotification.fireToast("error", responseData.responseMessage).then()
                 StoreUtils.commit(StoreUtils.mutations.team.updateLoading, false)
+                return responseData
             }
         }).catch(error=>{
             BaseNotification.fireToast("error", error).then()

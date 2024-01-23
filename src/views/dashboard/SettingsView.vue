@@ -167,7 +167,7 @@
                       </div>
                       <div class="members-sub">
                         <p>Manage your team members here</p>
-                        <form action="/search" class="header25_search-form w-form"><input type="search" class="form-input-6 is-search-input w-input" maxlength="256" name="query" placeholder="Search by name or email" id="search" required="">
+                        <form action="/search" class="header25_search-form w-form"><input type="search" class="form-input-6 is-search-input w-input" v-model="search" maxlength="256" name="query" placeholder="Search by name or email" id="search" required="">
                           <div class="search-icon-2 w-embed"><svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16.875 15.4554L20.875 19.4602C21.0536 19.6589 21.0448 19.9631 20.855 20.1511L20.155 20.8519C20.0611 20.9467 19.9333 21 19.8 21C19.6667 21 19.5389 20.9467 19.445 20.8519L15.445 16.8471C15.3344 16.7362 15.234 16.6156 15.145 16.4867L14.395 15.4855C13.1541 16.4776 11.613 17.0178 10.025 17.0173C6.75261 17.0287 3.90902 14.7686 3.17773 11.5751C2.44643 8.38161 4.0226 5.10699 6.9731 3.68991C9.92359 2.27284 13.461 3.09151 15.491 5.66125C17.521 8.23099 17.5019 11.866 15.445 14.4142L16.445 15.105C16.6012 15.2051 16.7454 15.3226 16.875 15.4554ZM5.025 10.0089C5.025 12.7736 7.26357 15.0149 10.025 15.0149C11.3511 15.0149 12.6229 14.4875 13.5605 13.5487C14.4982 12.6099 15.025 11.3366 15.025 10.0089C15.025 7.24412 12.7864 5.00285 10.025 5.00285C7.26357 5.00285 5.025 7.24412 5.025 10.0089Z" fill="CurrentColor"></path>
                           </svg></div><input type="submit" value="Invite People" class="button hide w-button">
@@ -176,328 +176,28 @@
                       </div>
                       <div class="setting-content-div">
                         <div class="w-layout-grid members-grid">
-                          <div id="w-node-db43f737-1d13-706f-3d4c-fb238453ea66-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
+                          <div id="w-node-db43f737-1d13-706f-3d4c-fb238453ea66-01a4ca85" class="team-member-item" v-for="(member, index) in allMembers" :key="index">
+                            <div class="member-left">
+                              <img class="profile-image" :src="member.customerPhoto ||require('@/assets/images/profile-picture.svg')"/>                              <div class="member-text-div">
+                                <div class="member-name">{{member.customerFirstName + ' ' + member.customerLastName}}</div>
+                                <div class="member-email">{{member.customerEmail}}</div>
                               </div>
                             </div>
-                            <div class="text-block-3">Admin</div>
+                            <div class="text-block-3" v-if="member.customerDepartment === 'ADMIN'">Admin</div>
                             <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="82ff7b76-2148-b533-be1e-09e3cb08aab3" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
+                              <a @click="openNav = !openNav" data-delay="200" data-hover="false" data-w-id="82ff7b76-2148-b533-be1e-09e3cb08aab3" class="dropdown2_component w-dropdown" :class="{'w--open' : openNav}">
+                                <div class="dropdown2_toggle w-dropdown-toggle" :class="{'w--open' : openNav}">
                                   <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <div class="dropdown2_dropdown-icon w-embed" :class="{'w--open' : openNav}"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
                                   </svg></div>
                                 </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
+                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list" :class="{'w--open' : openNav}">
                                   <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
                                   <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
                                   <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
                                 </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-_430bd83b-fbf5-c673-0a4c-1f80d10fde7c-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="text-block-3">Admin</div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="430bd83b-fbf5-c673-0a4c-1f80d10fde87" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-e90309f1-b013-4f33-b033-0977aeea09ff-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="e90309f1-b013-4f33-b033-0977aeea0a0a" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-_4fe991f8-7a79-6fbe-33fa-4719591b1f28-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="4fe991f8-7a79-6fbe-33fa-4719591b1f31" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-_2618febc-e97b-34eb-1bc7-5074fb785b31-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="2618febc-e97b-34eb-1bc7-5074fb785b3a" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-_23ef57ff-0b9b-df93-93c2-05f51b65a0e4-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="23ef57ff-0b9b-df93-93c2-05f51b65a0ed" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-_2f256366-1388-8e48-e6fb-c57fd468569f-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="2f256366-1388-8e48-e6fb-c57fd46856a8" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-e8105470-4175-4005-9e66-15e0201b413c-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="e8105470-4175-4005-9e66-15e0201b4145" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-a9653bec-a70d-8215-4bca-c1999df19ed2-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="a9653bec-a70d-8215-4bca-c1999df19edb" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-_014da40a-8ca0-409c-83e0-e1af2e16aba2-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="014da40a-8ca0-409c-83e0-e1af2e16abab" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-_9bc5c7d5-abf6-8358-63e6-fa4093ed20cb-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="9bc5c7d5-abf6-8358-63e6-fa4093ed20d4" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-d8833e38-f3b0-739b-5196-c62466da4e2b-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="d8833e38-f3b0-739b-5196-c62466da4e34" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-_3a14369f-5226-03e4-d997-9ee281aa56bd-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="3a14369f-5226-03e4-d997-9ee281aa56c6" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="w-node-_189b766f-b818-19b0-674f-cab917baa613-01a4ca85" class="team-member-item">
-                            <div class="member-left"><img sizes="40px" srcset="../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-500.jpeg 500w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-800.jpeg 800w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n-p-1080.jpeg 1080w, ../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg 1153w" src="../../assets/images/219290777_1023547135060488_6510262926800624014_n.jpeg" loading="lazy" alt="" class="member-image">
-                              <div class="member-text-div">
-                                <div class="member-name">Ben Peter</div>
-                                <div class="member-email">benpeter@cloud.com</div>
-                              </div>
-                            </div>
-                            <div class="member-right">
-                              <div data-delay="200" data-hover="false" data-w-id="189b766f-b818-19b0-674f-cab917baa61c" class="dropdown2_component w-dropdown">
-                                <div class="dropdown2_toggle w-dropdown-toggle">
-                                  <div>Actions</div>
-                                  <div class="dropdown2_dropdown-icon w-embed"><svg width=" 100%" height=" 100%" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.55806 6.29544C2.46043 6.19781 2.46043 6.03952 2.55806 5.94189L3.44195 5.058C3.53958 4.96037 3.69787 4.96037 3.7955 5.058L8.00001 9.26251L12.2045 5.058C12.3021 4.96037 12.4604 4.96037 12.5581 5.058L13.4419 5.94189C13.5396 6.03952 13.5396 6.19781 13.4419 6.29544L8.17678 11.5606C8.07915 11.6582 7.92086 11.6582 7.82323 11.5606L2.55806 6.29544Z" fill="currentColor"></path>
-                                  </svg></div>
-                                </div>
-                                <nav style="-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="dropdown2_dropdown-list w-dropdown-list">
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option One</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Two</a>
-                                  <a href="#" class="status-item-dropdown w-dropdown-link">Option Three</a>
-                                </nav>
-                              </div>
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -548,6 +248,7 @@ import StoreUtils from "@/util/baseUtils/StoreUtils";
 import BaseButtons from "@/components/buttons/BaseButtons";
 import AuthenticationRequest from "@/model/request/AuthenticationRequest";
 import CustomerRequest from "@/model/request/CustomerRequest";
+import BaseNotification from "@/components/notification/BaseNotification";
 export default {
   name: "SettingsView",
   components: {BaseButtons, DashboardLayout},
@@ -567,7 +268,9 @@ export default {
       phone: "",
       name: "",
       picture: "",
-      readModel: CustomerRequest.readById
+      readModel: CustomerRequest.readById,
+      openNav: false,
+      search: ""
     }
   },
   computed:{
@@ -576,7 +279,8 @@ export default {
       loading: state => state.auth.loading,
       customerDetails: state => state.customer.customerDetails,
       url: state => state.sbucket.url,
-      customerLoading: state => state.customer.loading
+      customerLoading: state => state.customer.loading,
+      allMembers: state => state.teams.allTeamMembers
     }),
     fullName(){
       return `${this.customerDetails.customerFirstName} ${this.customerDetails.customerLastName}`
@@ -658,20 +362,23 @@ export default {
     },
     updateDetails(){
       let names = [];
-      if(this.name !== null){
+      if(this.name !== ""){
         names = this.name.split(" ");
         this.updateModel.customerFirstName = names[0];
         this.updateModel.customerLastName = names[1];
       }
       this.updateModel.customerId = this.userInfo.customerId;
-      if(this.url !== null){
+      if(this.url !== ""){
         this.updateModel.customerPhoto = this.url;
       }
-      if(this.phone !== null){
+      if(this.phone !== ""){
         this.updateModel.customerPhoneNumber = this.phone;
       }
       StoreUtils.dispatch(StoreUtils.actions.customer.updateSingleCustomer, this.updateModel).then(
-          () => {
+          (res) => {
+            if (res.responseCode === "00"){
+              BaseNotification.fireToast("success", "Completed successfully")
+            }
               this.readModel.customerId = this.userInfo.customerId;
               StoreUtils.dispatch(StoreUtils.actions.customer.readSingleCustomer, this.readModel)
             }
@@ -679,6 +386,20 @@ export default {
     }
   },
   watch:{
+    search(){
+      let items = []
+      if (this.search !== ""){
+        this.allMembers.forEach((project) => {
+          if (project.customerFirstName.toLowerCase().includes(this.search.toLowerCase()) || project.customerLastName.toLowerCase().includes(this.search.toLowerCase())){
+            items.push(project)
+          }
+        })
+        StoreUtils.commit(StoreUtils.mutations.team.updateAllTeamMembers, items)
+      }
+      else{
+        StoreUtils.dispatch(StoreUtils.actions.team.readTeam)
+      }
+    },
     confirmPassword(){
       if(this.password.length === 0) {
         this.confirmPasswordErrorVisible = false;

@@ -50,12 +50,12 @@ export const actions = {
             console.log(response.data)
             let responseData = response.data;
             if (responseData.responseCode === "00"){
-                BaseNotification.fireToast("success", responseData.responseMessage).then(
-
-                )
+                StoreUtils.dispatch(StoreUtils.actions.task.readTask)
+                return responseData
             }else{
                 BaseNotification.fireToast("error", responseData.responseMessage).then()
                 StoreUtils.commit(StoreUtils.mutations.task.updateLoading, false)
+                return responseData
             }
         }).catch(error=>{
             BaseNotification.fireToast("error", error).then()

@@ -10,8 +10,11 @@ export default {
     callCreateProjectApi(payload) {
         return client.apiClient.post("project/create", payload);
     },
+    callTaskProjectApi(payload) {
+        return client.apiClient.post("task/read-by-project-id", payload);
+    },
     callReadByIdApi(payload) {
-        return client.apiClient.post("project/read-by-id", payload);
+        return client.apiClient.post("project/read-by-project-id", payload);
     },
     callReadByTeamIdApi(payload) {
         return client.apiClient.post("project/read-by-team-id", payload);
